@@ -1,0 +1,1 @@
+An example of how to use multimodal capability of Gemini 2.0 models to identify scam messages.
