@@ -1,11 +1,8 @@
-import os
-import yaml
-import json
-
+import os, yaml, json
+import mimetypes
 import streamlit as st
 from typing import Optional
 from dotenv import load_dotenv
-
 from google import genai
 from google.genai import types
 from google.cloud import storage
@@ -28,7 +25,8 @@ class ScamAnalyzer:
         self.location = os.environ.get("LOCATION")
         self.bucket_name = os.environ.get("BUCKET_NAME")
         self.folder = os.environ.get("FOLDER_PATH")
-        self.model_name = "gemini-2.0-flash-001"
+        self.primary_prompt = config["PRIMARY_PROMPT"]
+        self.model_name = config["MODEL_NAME"]
 
         # Instantiate vertex_ai client
         self.ai_client = genai.Client(
@@ -38,8 +36,8 @@ class ScamAnalyzer:
         )
         self.storage_client = storage.Client()
 
-    def predict_gemini(self, text_input: str, 
-                       image_video_uri: Optional[str] = None,
+    def predict_gemini(self, text_input, 
+                       image_uri: Optional[str] = None,
                        video_uri: Optional[str] = None) -> Optional[str]:
         """
         Sends a prompt to the Gemini model for prediction.
@@ -48,17 +46,17 @@ class ScamAnalyzer:
         print(system_instruction)
         system_instruction=types.Part.from_text(text=system_instruction)
 
-        text_prompt = config["PROMPT_1"].replace("__text_input__", text_input)
+        text_prompt = config[self.primary_prompt].replace("__text_input__", text_input)
         print(text_prompt)
         prompt = types.Part.from_text(text=text_prompt)
         
         parts = [prompt]
-        # if image_uri:
-        #     image_part = types.Part.from_uri(
-        #         file_uri=image_uri,
-        #         mime_type="image/jpeg"
-        #         )
-        #     parts.append(image_part)
+        if image_uri:
+            image_part = types.Part.from_uri(
+                file_uri=image_uri,
+                mime_type="image/jpeg"
+                )
+            parts.append(image_part)
         # if video_uri:
         #     video_part = types.Part.from_uri(
         #         file_uri=video_uri,
@@ -78,8 +76,8 @@ class ScamAnalyzer:
             top_p = 0.95,
             max_output_tokens = 8192,
             response_modalities = ["TEXT"],
-            response_mime_type = "application/json",
-            response_schema = {"type":"OBJECT","properties":{"response":{"type":"STRING"}}},
+            # response_mime_type = "application/json",
+            # response_schema = {"type":"OBJECT","properties":{"response":{"type":"STRING"}}},
             system_instruction=[system_instruction]
         )
         
@@ -92,8 +90,7 @@ class ScamAnalyzer:
                 ):
                 response += chunk.text
 
-            response_json = json.loads(response)
-            return response_json
+            return response
 
         except Exception as e:
             print(f"Error during Gemini prediction: {e}")
@@ -101,14 +98,14 @@ class ScamAnalyzer:
             return None
 
 
-    def upload_to_gcs(self, file: str, destination_blob_name: str) -> Optional[str]:
+    def upload_to_gcs(self, file, destination_blob_name):
         """
         Uploads a file to Google Cloud Storage.
         """
         try:
             bucket = self.storage_client.bucket(self.bucket_name)
             blob = bucket.blob(destination_blob_name)
-            blob.upload_from_filename(file_path)
+            blob.upload_from_file(file)
             gcs_uri = f"gs://{self.bucket_name}/{destination_blob_name}"
             print(f"File uploaded to {gcs_uri}")
             return gcs_uri

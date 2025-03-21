@@ -1,6 +1,6 @@
 # app.py
-import streamlit as st
 import os
+import streamlit as st
 from dotenv import load_dotenv
 from scam_analyzer import ScamAnalyzer
 
@@ -16,15 +16,25 @@ def main():
     scam_analyzer = ScamAnalyzer()
 
     st.title("Scam Detection with Gemini")
-    st.header("Enter the text/email or upload an image to check for scams")
+    st.markdown(
+        "<h3>Enter the text/email or upload an image to check for scams</h3>",
+        unsafe_allow_html=True,
+    )
 
-    prompt = st.text_area("Text", placeholder="Enter your text here...")
-    uploaded_file = st.file_uploader("Upload Image/Video", type=["jpg", "jpeg", "png", "mp4", "webm"])
+    # Use a single container for input elements
+    with st.container():
+        prompt = st.text_area("Text", placeholder="Enter your text here...", label_visibility="collapsed")
+        uploaded_file = st.file_uploader(
+            "Upload Image/Video", type=["jpg", "jpeg", "png", "mp4", "webm"],
+            label_visibility="collapsed"
+        )
 
     if st.button("Check for Scams"):
         if not prompt and not uploaded_file:
-            st.error("Please enter a text prompt or upload an image/video.")
-            return
+            st.markdown(
+                "<h3>Enter the text/email or upload an image to check for scams</h3>",
+                unsafe_allow_html=True,
+            )
 
         st.spinner("Checking for scams...")
         gcs_uri = None
@@ -35,7 +45,7 @@ def main():
                 st.error("File upload failed. Please check your connection and try again.")
                 return
 
-        response = scam_analyzer.predict_gemini(prompt, gcs_uri)
+        response = scam_analyzer.predict_gemini(prompt, image_uri = gcs_uri)
         if response:
             st.subheader("Gemini Response:")
             st.write(response)
