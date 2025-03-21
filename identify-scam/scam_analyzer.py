@@ -76,8 +76,8 @@ class ScamAnalyzer:
             top_p = 0.95,
             max_output_tokens = 8192,
             response_modalities = ["TEXT"],
-            # response_mime_type = "application/json",
-            # response_schema = {"type":"OBJECT","properties":{"response":{"type":"STRING"}}},
+            response_mime_type = "application/json",
+            response_schema = {"type":"OBJECT","properties":{"response":{"type":"STRING"}}},
             system_instruction=[system_instruction]
         )
         
