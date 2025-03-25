@@ -1,0 +1,9 @@
+pyyaml
+python-dotenv
+google-cloud-bigquery
+pandas
+google-cloud-aiplatform
+numpy
+scikit-learn
+flet
+db-dtypes
