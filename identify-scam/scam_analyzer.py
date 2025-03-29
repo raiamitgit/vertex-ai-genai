@@ -77,7 +77,44 @@ class ScamAnalyzer:
             max_output_tokens = 8192,
             response_modalities = ["TEXT"],
             response_mime_type = "application/json",
-            response_schema = {"type":"OBJECT","properties":{"response":{"type":"STRING"}}},
+            response_schema = {
+                "type": "object",
+                "properties": {
+                    "is_scam": {
+                    "type": "boolean",
+                    "description": "Indicates if the input is assessed as a scam (true) or not (false)."
+                    },
+                    "propensity": {
+                    "type": "string",
+                    "description": "Indicates the assessed likelihood or intensity of the scam.",
+                    "enum": [
+                        "small",
+                        "medium",
+                        "high"
+                    ]
+                    },
+                    "scam_type": {
+                    "type": "string",
+                    "description": "Specifies the type of scam identified.",
+                    "enum": [
+                        "phishing",
+                        "nigerian_prince",
+                        "tech_support_scam",
+                        "unknown"
+                    ]
+                    },
+                    "reasoning": {
+                    "type": "string",
+                    "description": "Provides a brief explanation for the scam assessment."
+                    }
+                },
+                "required": [
+                    "is_scam",
+                    "propensity",
+                    "scam_type",
+                    "reasoning"
+                ]
+                },
             system_instruction=[system_instruction]
         )
         

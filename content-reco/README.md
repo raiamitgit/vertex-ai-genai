@@ -2,7 +2,7 @@
 
 ## Overview
 
-This project demonstrates a content recommendation system designed for a hypothetical futures trading platform. It generates personalized learning material recommendations (articles and videos) for users based on their profile and simulated trading history. The system leverages Google Cloud services, specifically **BigQuery** for data storage and **Vertex AI** for generating text embeddings[cite: 1]. A simple web interface is provided using **Flet** to retrieve recommendations for a specific user on-demand.
+This project demonstrates a content recommendation system designed for a hypothetical futures trading platform. It generates personalized learning material recommendations (articles and videos) for users based on their profile and simulated trading history. The system leverages Google Cloud services, specifically **BigQuery** for data storage and **Vertex AI** for generating text embeddings. A simple web interface is provided using **Flet** to retrieve recommendations for a specific user on-demand.
 
 **Key Features:**
 
@@ -20,20 +20,18 @@ This project demonstrates a content recommendation system designed for a hypothe
 
 content-recommendation/
 ├── data_generation/
-│ ├── generate_data.py # Script to generate synthetic data
-│ └── utils/
-│ ├── synthetic_data.py # Functions for creating synthetic user/media items
-│ └── bigquery_utils.py # Utilities for BigQuery interactions
+│   ├── generate_data.py        # Script to generate synthetic data
+│   └── utils/
+│       ├── synthetic_data.py   # Functions for creating synthetic user/media items
+│       └── bigquery_utils.py   # Utilities for BigQuery interactions
 ├── recommendation_engine/
-│ ├── create_recommendation.py # Batch pipeline: generates embeddings & recommendations
-│ ├── embeddings.py # Handles interaction with Vertex AI Embedding API
-│ └── recommender.py # Calculates similarity and finds top recommendations
-├── recommendation_app.py # Flet application for online recommendation retrieval
-├── config.yaml # Configuration file for the project
-├── requirements.txt # Python dependencies
-└── README.md # This file
-
-
+│   ├── create_recommendation.py # Batch pipeline: generates embeddings & recommendations
+│   ├── embeddings.py           # Handles interaction with Vertex AI Embedding API
+│   └── recommender.py          # Calculates similarity and finds top recommendations
+├── recommendation_app.py       # Flet application for online recommendation retrieval
+├── config.yaml                 # Configuration file for the project
+├── requirements.txt            # Python dependencies
+└── README.md                   # This file 
 
 ## Setup and Configuration
 

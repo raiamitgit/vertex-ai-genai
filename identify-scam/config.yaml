@@ -23,16 +23,8 @@ PROMPT_1: >
   4. Identify the type of scam (e.g., phishing, Nigerian prince, tech support scam, etc.). 
   If the scam type cannot be confidently determined, output "unknown."
   
-  5. Output your analysis as a JSON object with the following format:
+  5. Output your analysis as a JSON object
 
-  ```json
-  {
-  "is_scam": true/false,  // Boolean value
-  "propensity": "small"/"medium"/"high", // Scam propensity
-  "scam_type": "phishing"/"nigerian_prince"/"tech_support_scam"/ "unknown", // Type of scam or unknown
-  "reasoning": "Provide a brief explanation for your assessment" // Explanation of the assessment
-  }
-  ```
 
   6. Ensure that all the above attributes are ALWAYS included in the output json. 
 
