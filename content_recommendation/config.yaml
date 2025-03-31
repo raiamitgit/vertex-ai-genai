@@ -1,0 +1,85 @@
+# Configuration for the recommendation system
+data_generation:
+  # Parameters for generating synthetic data
+  num_users: 100
+  num_articles: 250 # Define how many articles
+  num_videos: 250   # Define how many videos
+
+  # Date range for created_date fields
+  start_date: "2022-01-01T00:00:00Z" # Use ISO 8601 UTC format
+  end_date: "2024-03-30T23:59:59Z" # Use ISO 8601 UTC format
+
+  # Possible values for user attributes (keep existing lists)
+  experience_levels: ["Beginner", "Intermediate", "Advanced"]
+  trading_goals_list: ["Improve risk management", "Learn about volatility trading", "Understand order flow", "Master technical analysis", "Learn about specific instruments", "Improve trading psychology", "Generate consistent profits", "Diversify trading strategies", "Learn about options trading"]
+  preferred_assets_list: ["ES", "NQ", "CL", "GC", "ZN", "ZB", "EURUSD", "BTC", "ETH", "AAPL", "GOOG"]
+  order_types: ["Market", "Limit", "Stop", "Stop-Limit", "Trailing Stop"]
+  frequencies: ["Low", "Medium", "High"]
+
+  # Possible values for media attributes
+  creators_authors: ["John Trader", "Jane Market", "FuturesAcademy", "TradeEasy Pro", "Alpha Analyst", "RiskManager Rick", "Quant Corner", "Market Pulse"]
+  media_tags: ["Beginner", "Intermediate", "Advanced", "Risk Management", "Technical Analysis", "Fundamental Analysis", "Options", "Futures", "ES", "NQ", "CL", "GC", "Trading Psychology", "Market Outlook", "Scalping", "Day Trading", "Swing Trading", "Economics"]
+  video_lengths_seconds: [300, 450, 600, 750, 900, 1200, 1500, 1800] # Used for content_length for videos
+
+# --- BigQuery Configuration ---
+bigquery:
+  # GCP Project ID and Location should be set in .env file
+  dataset_name: "trading_synth"  # Change if needed
+  users_table_name: "users_details"              # Table for basic user metadata
+  media_table_name: "media_content"      # Table for basic media metadata
+  user_embeddings_table_name: "user_embeddings"      # New table for user embeddings
+  media_embeddings_table_name: "media_embeddings"    # New table for media embeddings
+# --- BQML Models ---
+bqml_models:
+  text_generator: "trading_synth.gemini_2p0_flash" # Example text generation model
+  text_embedder: "trading_synth.text_embedding" # Example embedding model
+
+# --- BQML Generation Parameters (Optional) ---
+bqml_generation_params:
+  temperature: 0.7
+  top_p: 0.9
+  top_k: 40
+  max_output_tokens: 1024 # For text generation
+
+# --- BQML Prompt Templates ---
+bqml_prompts:
+  generate_article: >
+    Generate a high-quality, informative, and engaging financial trading educational article.
+    Title: {title}.
+    Author: {author_creator}.
+    Key topics: {tags}.
+    Target word count: approximately {content_length} words.
+    The article should be clear and useful for traders looking to learn about these topics.
+    Generate only the main article text.
+    Do not include any introductory phrases (like "Here is..."), headers, markdown formatting, or separate analysis sections in final response. Output only the article text itself.
+  generate_video_transcript: >
+    Generate a high-quality transcript for a financial trading educational video.
+    Title: {title}.
+    Creator: {author_creator}.
+    Video duration: {content_length} seconds.
+    Key topics: {tags}.
+    Generate only the spoken words as a clear and accurate transcript, formatted appropriately.
+    Do not include any introductory phrases (like "Okay here you go ..", "Here is..."), markdown formatting, or separate analysis sections in final response. Output only the transcript text itself.
+  generate_user_summary: >
+    Generate a concise profile summary (5-8 sentences) for a financial trader.
+    Analyze the following characteristics to infer their interests, potential knowledge gaps, and learning needs relevant for content recommendations:
+    Experience Level: {experience_level}.
+    Trading Goals: {trading_goal}.
+    Preferred Assets: {preferred_assets}.
+    Account Age (Months): {account_age_months}.
+    Favorite Instrument 1: {fav_instrument_1} (% Vol: {fav_instrument_1_volume_perc}).
+    Favorite Instrument 2: {fav_instrument_2} (% Vol: {fav_instrument_2_volume_perc}).
+    Avg Trade Duration (Min): {avg_trade_duration_minutes}.
+    Most Used Order Type: {most_used_order_type}.
+    Win Rate (%): {win_rate_perc}.
+    Avg Leverage: {average_leverage_multiple}.
+    Trading Frequency: {trading_frequency}.
+    The summary should be insightful for matching this user with relevant educational content (articles/videos). Focus on translating the raw data into a narrative about the trader likely profile and needs.
+    Do not include any introductory phrases (like "Here is..."), headers (like "**Profile Summary:**"), markdown formatting, or separate analysis sections in final response. Output only the summary text itself.
+
+# --- Recommendation Engine Configuration ---
+recommendations:
+  top_n: 10 # Number of recommendations to generate per user
+  # Distance measure for VECTOR_DISTANCE/VECTOR_SEARCH: COSINE, EUCLIDEAN, DOT_PRODUCT
+  # Ensure this matches the distance_type used to create the VECTOR INDEX
+  distance_measure: 'COSINE'
