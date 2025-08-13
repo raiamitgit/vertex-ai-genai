@@ -1,0 +1,8 @@
+flask
+python-dotenv
+google-genai
+google-adk
+google-cloud-storage
+google-cloud-aiplatform
+google-cloud-discoveryengine
+gunicorn

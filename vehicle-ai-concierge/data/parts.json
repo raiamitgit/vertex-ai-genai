@@ -1,0 +1,1313 @@
+{
+  "parts": [
+    {
+      "id": "B001",
+      "name": "All-Weather Floor Liners",
+      "description": "Precision-engineered to fit your vehicle perfectly, these all-weather floor liners protect your car's interior from dirt, mud, and snow. Made from a durable, flexible material that is easy to clean.",
+      "price": 179.99,
+      "compatibility": [
+        {"model": "Enclave", "years": [2020, 2021, 2022, 2023, 2024]},
+        {"model": "Envision", "years": [2021, 2022, 2023, 2024]},
+        {"model": "Encore GX", "years": [2020, 2021, 2022, 2023, 2024]}
+      ],
+      "category": "Interior",
+      "in_stock": true,
+      "part_number": "84662863"
+    },
+    {
+      "id": "B002",
+      "name": "Roof Rack Cross Rails",
+      "description": "Expand your cargo-carrying capacity with these aerodynamic roof rack cross rails. Perfect for bikes, skis, or a rooftop carrier. Simple, no-drill installation.",
+      "price": 395.00,
+      "compatibility": [
+        {"model": "Enclave", "years": [2018, 2019, 2020, 2021, 2022, 2023, 2024]},
+        {"model": "Envista", "years": [2024]}
+      ],
+      "category": "Exterior",
+      "in_stock": true,
+      "part_number": "84301396"
+    },
+    {
+      "id": "B003",
+      "name": "Splash Guards - Molded",
+      "description": "Custom-molded splash guards that fit directly behind your wheels to protect your vehicle from mud, gravel, and other road debris. Set of four.",
+      "price": 110.50,
+      "compatibility": [
+        {"model": "Envision", "years": [2021, 2022, 2023, 2024]},
+        {"model": "Encore GX", "years": [2020, 2021, 2022, 2023, 2024]}
+      ],
+      "category": "Exterior",
+      "in_stock": false,
+      "part_number": "84822811"
+    },
+    {
+      "id": "B004",
+      "name": "Cargo Area Organizer",
+      "description": "Keep your trunk neat and tidy with this flexible cargo organizer. Features multiple compartments and folds flat for easy storage when not in use.",
+      "price": 145.00,
+      "compatibility": [
+        {"model": "Enclave", "years": [2018, 2019, 2020, 2021, 2022, 2023, 2024]},
+        {"model": "Envision", "years": [2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024]},
+        {"model": "Encore GX", "years": [2020, 2021, 2022, 2023, 2024]},
+        {"model": "Envista", "years": [2024]}
+      ],
+      "category": "Interior",
+      "in_stock": true,
+      "part_number": "19329113"
+    },
+    {
+      "id": "B005",
+      "name": "Wireless Smartphone Charger",
+      "description": "Upgrade your interior with this convenient wireless charging pad. Simply place your Qi-compatible device on the mat for a hassle-free charge.",
+      "price": 250.00,
+      "compatibility": [
+        {"model": "Enclave", "years": [2022, 2023, 2024]},
+        {"model": "Envision", "years": [2023, 2024]}
+      ],
+      "category": "Electronics",
+      "in_stock": true,
+      "part_number": "84526978"
+    },
+    {
+      "id": "B006",
+      "name": "Illuminated Door Sill Plates",
+      "description": "Add a touch of elegance to your vehicle with these illuminated door sill plates. The Buick logo glows softly when the doors are opened.",
+      "price": 375.00,
+      "compatibility": [
+        {"model": "Enclave", "years": [2020, 2021, 2022, 2023, 2024]},
+        {"model": "Envision", "years": [2021, 2022, 2023, 2024]}
+      ],
+      "category": "Interior",
+      "in_stock": true,
+      "part_number": "84628111"
+    },
+    {
+      "id": "B007",
+      "name": "Wheel Lock Kit",
+      "description": "Help protect your wheels and tires from theft with this set of four wheel locks and a unique key.",
+      "price": 75.00,
+      "compatibility": [
+        {"model": "Enclave", "years": [2018, 2019, 2020, 2021, 2022, 2023, 2024]},
+        {"model": "Envision", "years": [2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024]},
+        {"model": "Encore GX", "years": [2020, 2021, 2022, 2023, 2024]},
+        {"model": "Envista", "years": [2024]}
+      ],
+      "category": "Security",
+      "in_stock": true,
+      "part_number": "19367011"
+    },
+    {
+      "id": "B008",
+      "name": "Cabin Air Filter",
+      "description": "High-quality cabin air filter that removes pollen, dust, and other airborne particles, providing a cleaner, more comfortable environment inside your vehicle.",
+      "price": 45.95,
+      "compatibility": [
+        {"model": "Enclave", "years": [2018, 2019, 2020, 2021, 2022, 2023, 2024]},
+        {"model": "Envision", "years": [2021, 2022, 2023, 2024]}
+      ],
+      "category": "Maintenance",
+      "in_stock": true,
+      "part_number": "CF185"
+    },
+    {
+      "id": "B009",
+      "name": "Engine Air Filter",
+      "description": "Ensure your engine breathes clean air for optimal performance and fuel efficiency. This filter traps dirt and contaminants before they can enter the engine.",
+      "price": 38.50,
+      "compatibility": [
+        {"model": "Encore GX", "years": [2020, 2021, 2022, 2023, 2024]},
+        {"model": "Envista", "years": [2024]}
+      ],
+      "category": "Maintenance",
+      "in_stock": true,
+      "part_number": "A3231C"
+    },
+    {
+      "id": "B010",
+      "name": "Wiper Blades - Set",
+      "description": "Premium all-season wiper blades designed for a streak-free wipe and enhanced visibility in all weather conditions. Includes front pair.",
+      "price": 55.00,
+      "compatibility": [
+        {"model": "Enclave", "years": [2018, 2019, 2020, 2021, 2022, 2023, 2024]},
+        {"model": "Envision", "years": [2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024]},
+        {"model": "Encore GX", "years": [2020, 2021, 2022, 2023, 2024]},
+        {"model": "Envista", "years": [2024]}
+      ],
+      "category": "Maintenance",
+      "in_stock": true,
+      "part_number": "84318141"
+    },
+    {
+      "id": "B011",
+      "name": "Bike Carrier - Hitch Mounted",
+      "description": "Carry up to two bikes with this easy-to-use hitch-mounted bike carrier. Tilts away for easy access to the rear of your vehicle.",
+      "price": 499.00,
+      "compatibility": [
+        {"model": "Enclave", "years": [2018, 2019, 2020, 2021, 2022, 2023, 2024]},
+        {"model": "Envision", "years": [2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024]}
+      ],
+      "category": "Exterior",
+      "in_stock": true,
+      "part_number": "19367123"
+    },
+    {
+      "id": "B012",
+      "name": "Key Fob Battery - CR2032",
+      "description": "Replacement CR2032 battery for your Buick key fob. Ensures reliable operation of your remote keyless entry system.",
+      "price": 5.99,
+      "compatibility": [
+        {"model": "Enclave", "years": [2018, 2019, 2020, 2021, 2022, 2023, 2024]},
+        {"model": "Envision", "years": [2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024]},
+        {"model": "Encore GX", "years": [2020, 2021, 2022, 2023, 2024]},
+        {"model": "Envista", "years": [2024]}
+      ],
+      "category": "Maintenance",
+      "in_stock": true,
+      "part_number": "CR2032"
+    },
+    {
+      "id": "B013",
+      "name": "Touch-Up Paint Pen",
+      "description": "Fix minor scratches and chips with this easy-to-use touch-up paint pen. Matches your vehicle's factory color perfectly. Color: Summit White.",
+      "price": 25.50,
+      "compatibility": [
+        {"model": "Enclave", "years": [2018, 2019, 2020, 2021, 2022, 2023, 2024]},
+        {"model": "Envision", "years": [2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024]},
+        {"model": "Encore GX", "years": [2020, 2021, 2022, 2023, 2024]},
+        {"model": "Envista", "years": [2024]}
+      ],
+      "category": "Maintenance",
+      "in_stock": true,
+      "part_number": "WA8624"
+    },
+    {
+      "id": "B014",
+      "name": "First Aid Kit",
+      "description": "Compact and comprehensive first aid kit, perfect for stowing in your vehicle for emergencies. Contains bandages, antiseptic wipes, and more.",
+      "price": 40.00,
+      "compatibility": [
+        {"model": "Enclave", "years": [2018, 2019, 2020, 2021, 2022, 2023, 2024]},
+        {"model": "Envision", "years": [2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024]},
+        {"model": "Encore GX", "years": [2020, 2021, 2022, 2023, 2024]},
+        {"model": "Envista", "years": [2024]}
+      ],
+      "category": "Safety",
+      "in_stock": true,
+      "part_number": "19329112"
+    },
+    {
+      "id": "B015",
+      "name": "Roadside Emergency Kit",
+      "description": "Be prepared for the unexpected with this roadside emergency kit. Includes jumper cables, flashlight, gloves, and other essential tools.",
+      "price": 110.00,
+      "compatibility": [
+        {"model": "Enclave", "years": [2018, 2019, 2020, 2021, 2022, 2023, 2024]},
+        {"model": "Envision", "years": [2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024]},
+        {"model": "Encore GX", "years": [2020, 2021, 2022, 2023, 2024]},
+        {"model": "Envista", "years": [2024]}
+      ],
+      "category": "Safety",
+      "in_stock": true,
+      "part_number": "19329111"
+    },
+    {
+      "id": "B016",
+      "name": "20-Inch Aluminum Wheels - Midnight Silver",
+      "description": "Upgrade the look of your Enclave with these stunning 20-inch aluminum wheels in a Midnight Silver finish. Set of four.",
+      "price": 2995.00,
+      "compatibility": [
+        {"model": "Enclave", "years": [2022, 2023, 2024]}
+      ],
+      "category": "Wheels",
+      "in_stock": true,
+      "part_number": "84628112"
+    },
+    {
+      "id": "B017",
+      "name": "Brake Pads - Front",
+      "description": "Genuine Buick front brake pads designed for optimal stopping power and low noise. Ensures safety and performance.",
+      "price": 125.75,
+      "compatibility": [
+        {"model": "Envision", "years": [2021, 2022, 2023, 2024]}
+      ],
+      "category": "Brakes",
+      "in_stock": true,
+      "part_number": "84581234"
+    },
+    {
+      "id": "B018",
+      "name": "Brake Rotors - Front",
+      "description": "High-quality front brake rotors that provide smooth, reliable braking performance. Designed to resist warping and corrosion.",
+      "price": 180.25,
+      "compatibility": [
+        {"model": "Envision", "years": [2021, 2022, 2023, 2024]}
+      ],
+      "category": "Brakes",
+      "in_stock": true,
+      "part_number": "84581235"
+    },
+    {
+      "id": "B019",
+      "name": "Battery - AGM",
+      "description": "Absorbent Glass Mat (AGM) battery for vehicles with start/stop technology. Provides high cranking power and a long service life.",
+      "price": 285.00,
+      "compatibility": [
+        {"model": "Encore GX", "years": [2020, 2021, 2022, 2023, 2024]},
+        {"model": "Envista", "years": [2024]}
+      ],
+      "category": "Maintenance",
+      "in_stock": true,
+      "part_number": "88865541"
+    },
+    {
+      "id": "B020",
+      "name": "Sport Pedal Covers",
+      "description": "Add a high-performance look to your interior with these brushed aluminum sport pedal covers with rubber traction pads.",
+      "price": 150.00,
+      "compatibility": [
+        {"model": "Envision", "years": [2021, 2022, 2023, 2024]},
+        {"model": "Encore GX", "years": [2021, 2022, 2023, 2024]},
+        {"model": "Envista", "years": [2024]}
+      ],
+      "category": "Interior",
+      "in_stock": true,
+      "part_number": "84822812"
+    },
+    {
+      "id": "B021",
+      "name": "Rear Seat Entertainment System",
+      "description": "Keep rear passengers entertained with this dual-screen DVD entertainment system. Includes two sets of wireless headphones.",
+      "price": 1995.00,
+      "compatibility": [
+        {"model": "Enclave", "years": [2020, 2021, 2022, 2023, 2024]}
+      ],
+      "category": "Electronics",
+      "in_stock": false,
+      "part_number": "19367124"
+    },
+    {
+      "id": "B022",
+      "name": "Hitch Trailering Package",
+      "description": "Allows you to tow trailers and carry accessories. Includes trailer hitch, wiring harness, and all necessary hardware. 5,000-lb capacity.",
+      "price": 895.00,
+      "compatibility": [
+        {"model": "Enclave", "years": [2018, 2019, 2020, 2021, 2022, 2023, 2024]}
+      ],
+      "category": "Exterior",
+      "in_stock": true,
+      "part_number": "84301397"
+    },
+    {
+      "id": "B023",
+      "name": "Cargo Net - Envelope Style",
+      "description": "Keep groceries and other items from rolling around in your cargo area with this flexible envelope-style cargo net.",
+      "price": 65.00,
+      "compatibility": [
+        {"model": "Enclave", "years": [2018, 2019, 2020, 2021, 2022, 2023, 2024]},
+        {"model": "Envision", "years": [2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024]},
+        {"model": "Encore GX", "years": [2020, 2021, 2022, 2023, 2024]},
+        {"model": "Envista", "years": [2024]}
+      ],
+      "category": "Interior",
+      "in_stock": true,
+      "part_number": "19329114"
+    },
+    {
+      "id": "B024",
+      "name": "Exhaust Tip - Polished Stainless Steel",
+      "description": "Add a sporty finishing touch to your vehicle's exhaust with this highly polished stainless steel exhaust tip.",
+      "price": 135.00,
+      "compatibility": [
+        {"model": "Encore GX", "years": [2020, 2021, 2022, 2023, 2024]},
+        {"model": "Envista", "years": [2024]}
+      ],
+      "category": "Exterior",
+      "in_stock": true,
+      "part_number": "84822813"
+    },
+    {
+      "id": "B025",
+      "name": "Sunshade - Windshield",
+      "description": "Custom-fit sunshade with the Buick logo helps keep your vehicle's interior cool on hot, sunny days and protects it from UV damage.",
+      "price": 80.00,
+      "compatibility": [
+        {"model": "Enclave", "years": [2018, 2019, 2020, 2021, 2022, 2023, 2024]},
+        {"model": "Envision", "years": [2021, 2022, 2023, 2024]},
+        {"model": "Encore GX", "years": [2020, 2021, 2022, 2023, 2024]},
+        {"model": "Envista", "years": [2024]}
+      ],
+      "category": "Interior",
+      "in_stock": true,
+      "part_number": "19367125"
+    },
+    {
+      "id": "B026",
+      "name": "18-Inch Aluminum Wheels - Carbon Flash",
+      "description": "Give your Encore GX a bold look with these 18-inch aluminum wheels in a Carbon Flash Metallic finish. Set of four.",
+      "price": 2195.00,
+      "compatibility": [
+        {"model": "Encore GX", "years": [2020, 2021, 2022, 2023, 2024]}
+      ],
+      "category": "Wheels",
+      "in_stock": true,
+      "part_number": "84628113"
+    },
+    {
+      "id": "B027",
+      "name": "Brake Pads - Rear",
+      "description": "Genuine Buick rear brake pads designed for optimal stopping power and low noise. Ensures safety and performance.",
+      "price": 110.50,
+      "compatibility": [
+        {"model": "Encore GX", "years": [2020, 2021, 2022, 2023, 2024]}
+      ],
+      "category": "Brakes",
+      "in_stock": true,
+      "part_number": "84581236"
+    },
+    {
+      "id": "B028",
+      "name": "Brake Rotors - Rear",
+      "description": "High-quality rear brake rotors that provide smooth, reliable braking performance. Designed to resist warping and corrosion.",
+      "price": 165.00,
+      "compatibility": [
+        {"model": "Encore GX", "years": [2020, 2021, 2022, 2023, 2024]}
+      ],
+      "category": "Brakes",
+      "in_stock": true,
+      "part_number": "84581237"
+    },
+    {
+      "id": "B029",
+      "name": "Cargo Liner - Integrated",
+      "description": "Protect the back of the rear seats and the cargo floor from spills and stains. This integrated liner folds with the seats.",
+      "price": 195.00,
+      "compatibility": [
+        {"model": "Enclave", "years": [2021, 2022, 2023, 2024]},
+        {"model": "Envision", "years": [2021, 2022, 2023, 2024]}
+      ],
+      "category": "Interior",
+      "in_stock": true,
+      "part_number": "84662864"
+    },
+    {
+      "id": "B030",
+      "name": "Bodyside Molding - Chrome",
+      "description": "Add a stylish accent and help protect your doors from dings and dents with this chrome bodyside molding.",
+      "price": 275.00,
+      "compatibility": [
+        {"model": "Enclave", "years": [2018, 2019, 2020, 2021, 2022, 2023, 2024]}
+      ],
+      "category": "Exterior",
+      "in_stock": true,
+      "part_number": "84301398"
+    },
+    {
+      "id": "B031",
+      "name": "Ambient Lighting Kit",
+      "description": "Enhance the interior atmosphere of your Buick with a soft, multi-color ambient lighting kit. Includes light pipes for the footwells and cup holders.",
+      "price": 350.00,
+      "compatibility": [
+        {"model": "Envision", "years": [2022, 2023, 2024]}
+      ],
+      "category": "Electronics",
+      "in_stock": true,
+      "part_number": "84526979"
+    },
+    {
+      "id": "B032",
+      "name": "Pet Barrier",
+      "description": "Keep your furry friends safely in the cargo area with this sturdy and easy-to-install pet barrier.",
+      "price": 295.00,
+      "compatibility": [
+        {"model": "Enclave", "years": [2018, 2019, 2020, 2021, 2022, 2023, 2024]},
+        {"model": "Envision", "years": [2021, 2022, 2023, 2024]}
+      ],
+      "category": "Interior",
+      "in_stock": true,
+      "part_number": "19367126"
+    },
+    {
+      "id": "B033",
+      "name": "License Plate Frame - Buick Logo",
+      "description": "A stylish polished stainless steel license plate frame featuring the Buick logo. Resists rust and corrosion.",
+      "price": 50.00,
+      "compatibility": [
+        {"model": "Enclave", "years": [2018, 2019, 2020, 2021, 2022, 2023, 2024]},
+        {"model": "Envision", "years": [2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024]},
+        {"model": "Encore GX", "years": [2020, 2021, 2022, 2023, 2024]},
+        {"model": "Envista", "years": [2024]}
+      ],
+      "category": "Exterior",
+      "in_stock": true,
+      "part_number": "19329115"
+    },
+    {
+      "id": "B034",
+      "name": "Tire Pressure Monitor Sensor (TPMS)",
+      "description": "Replacement TPMS sensor to ensure your tire pressure monitoring system is working correctly. Professional installation recommended.",
+      "price": 65.50,
+      "compatibility": [
+        {"model": "Enclave", "years": [2018, 2019, 2020, 2021, 2022, 2023, 2024]},
+        {"model": "Envision", "years": [2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024]},
+        {"model": "Encore GX", "years": [2020, 2021, 2022, 2023, 2024]},
+        {"model": "Envista", "years": [2024]}
+      ],
+      "category": "Maintenance",
+      "in_stock": true,
+      "part_number": "13598771"
+    },
+    {
+      "id": "B035",
+      "name": "Oil Filter",
+      "description": "Genuine Buick oil filter designed for maximum filtration and engine protection. Use with synthetic oil for best results.",
+      "price": 15.99,
+      "compatibility": [
+        {"model": "Encore GX", "years": [2020, 2021, 2022, 2023, 2024]},
+        {"model": "Envista", "years": [2024]}
+      ],
+      "category": "Maintenance",
+      "in_stock": true,
+      "part_number": "PF64"
+    },
+    {
+      "id": "B036",
+      "name": "Spark Plugs - Set of 3",
+      "description": "High-quality iridium spark plugs for improved engine performance, fuel economy, and longevity. For 1.3L Turbo engine.",
+      "price": 49.99,
+      "compatibility": [
+        {"model": "Encore GX", "years": [2020, 2021, 2022, 2023, 2024]},
+        {"model": "Envista", "years": [2024]}
+      ],
+      "category": "Maintenance",
+      "in_stock": true,
+      "part_number": "41-125"
+    },
+    {
+      "id": "B037",
+      "name": "Rear Bumper Protector",
+      "description": "Helps protect your rear bumper from scratches and scuffs when loading and unloading the cargo area.",
+      "price": 125.00,
+      "compatibility": [
+        {"model": "Envision", "years": [2021, 2022, 2023, 2024]},
+        {"model": "Encore GX", "years": [2020, 2021, 2022, 2023, 2024]}
+      ],
+      "category": "Exterior",
+      "in_stock": true,
+      "part_number": "84822814"
+    },
+    {
+      "id": "B038",
+      "name": "Universal Tablet Holder",
+      "description": "Mounts securely to the back of the front-seat head restraints to hold a tablet for rear-seat entertainment.",
+      "price": 210.00,
+      "compatibility": [
+        {"model": "Enclave", "years": [2018, 2019, 2020, 2021, 2022, 2023, 2024]},
+        {"model": "Envision", "years": [2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024]},
+        {"model": "Encore GX", "years": [2020, 2021, 2022, 2023, 2024]},
+        {"model": "Envista", "years": [2024]}
+      ],
+      "category": "Electronics",
+      "in_stock": true,
+      "part_number": "19367127"
+    },
+    {
+      "id": "B039",
+      "name": "Wheel Center Caps with Buick Logo",
+      "description": "Replacement center caps for your Buick wheels, featuring the tri-shield logo. Set of four.",
+      "price": 85.00,
+      "compatibility": [
+        {"model": "Enclave", "years": [2018, 2019, 2020, 2021, 2022, 2023, 2024]},
+        {"model": "Envision", "years": [2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024]},
+        {"model": "Encore GX", "years": [2020, 2021, 2022, 2023, 2024]},
+        {"model": "Envista", "years": [2024]}
+      ],
+      "category": "Wheels",
+      "in_stock": true,
+      "part_number": "19352554"
+    },
+    {
+      "id": "B040",
+      "name": "Car Cover",
+      "description": "Protect your vehicle from the elements with this custom-fit car cover. Made from a durable, weather-resistant material.",
+      "price": 350.00,
+      "compatibility": [
+        {"model": "Envista", "years": [2024]}
+      ],
+      "category": "Exterior",
+      "in_stock": true,
+      "part_number": "19367128"
+    },
+    {
+      "id": "B041",
+      "name": "Ashtray and Lighter Kit",
+      "description": "Convenient kit that fits in your vehicle's cup holder. Includes an ashtray with a lid and a lighter element.",
+      "price": 60.00,
+      "compatibility": [
+        {"model": "Enclave", "years": [2018, 2019, 2020, 2021, 2022, 2023, 2024]},
+        {"model": "Envision", "years": [2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024]},
+        {"model": "Encore GX", "years": [2020, 2021, 2022, 2023, 2024]},
+        {"model": "Envista", "years": [2024]}
+      ],
+      "category": "Interior",
+      "in_stock": true,
+      "part_number": "19329116"
+    },
+    {
+      "id": "B042",
+      "name": "Fuel Cap - Locking",
+      "description": "Help prevent fuel theft with this locking fuel cap. Comes with two keys.",
+      "price": 40.00,
+      "compatibility": [
+        {"model": "Enclave", "years": [2018, 2019, 2020, 2021, 2022, 2023, 2024]},
+        {"model": "Envision", "years": [2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024]},
+        {"model": "Encore GX", "years": [2020, 2021, 2022, 2023, 2024]},
+        {"model": "Envista", "years": [2024]}
+      ],
+      "category": "Security",
+      "in_stock": true,
+      "part_number": "19367012"
+    },
+    {
+      "id": "B043",
+      "name": "Serpentine Belt",
+      "description": "Genuine Buick serpentine belt for reliable operation of your vehicle's alternator, power steering pump, and A/C compressor.",
+      "price": 75.00,
+      "compatibility": [
+        {"model": "Enclave", "years": [2018, 2019, 2020, 2021, 2022, 2023, 2024]}
+      ],
+      "category": "Maintenance",
+      "in_stock": true,
+      "part_number": "12657211"
+    },
+    {
+      "id": "B044",
+      "name": "Thermostat",
+      "description": "Replacement engine coolant thermostat to ensure your engine operates at its optimal temperature.",
+      "price": 55.00,
+      "compatibility": [
+        {"model": "Encore GX", "years": [2020, 2021, 2022, 2023, 2024]}
+      ],
+      "category": "Maintenance",
+      "in_stock": true,
+      "part_number": "12690025"
+    },
+    {
+      "id": "B045",
+      "name": "Water Pump",
+      "description": "High-quality water pump to circulate coolant through your engine and prevent overheating.",
+      "price": 250.00,
+      "compatibility": [
+        {"model": "Enclave", "years": [2018, 2019, 2020, 2021, 2022, 2023, 2024]}
+      ],
+      "category": "Maintenance",
+      "in_stock": true,
+      "part_number": "12682292"
+    },
+    {
+      "id": "B046",
+      "name": "Radiator Cap",
+      "description": "Replacement radiator cap to maintain proper pressure in your vehicle's cooling system.",
+      "price": 20.00,
+      "compatibility": [
+        {"model": "Enclave", "years": [2018, 2019, 2020, 2021, 2022, 2023, 2024]},
+        {"model": "Envision", "years": [2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024]},
+        {"model": "Encore GX", "years": [2020, 2021, 2022, 2023, 2024]},
+        {"model": "Envista", "years": [2024]}
+      ],
+      "category": "Maintenance",
+      "in_stock": true,
+      "part_number": "RC95"
+    },
+    {
+      "id": "B047",
+      "name": "Headlight Bulb - LED",
+      "description": "Bright, long-lasting LED headlight bulb for superior nighttime visibility. Direct replacement for factory bulb.",
+      "price": 150.00,
+      "compatibility": [
+        {"model": "Envision", "years": [2021, 2022, 2023, 2024]}
+      ],
+      "category": "Lighting",
+      "in_stock": true,
+      "part_number": "84526980"
+    },
+    {
+      "id": "B048",
+      "name": "Taillight Assembly - Right",
+      "description": "Complete right-side taillight assembly. Includes housing, lens, and bulbs.",
+      "price": 350.00,
+      "compatibility": [
+        {"model": "Encore GX", "years": [2020, 2021, 2022, 2023, 2024]}
+      ],
+      "category": "Lighting",
+      "in_stock": true,
+      "part_number": "84822815"
+    },
+    {
+      "id": "B049",
+      "name": "Fog Light Kit",
+      "description": "Enhance visibility in foggy or misty conditions with this complete fog light kit. Includes lights, wiring, and switch.",
+      "price": 450.00,
+      "compatibility": [
+        {"model": "Enclave", "years": [2022, 2023, 2024]}
+      ],
+      "category": "Lighting",
+      "in_stock": true,
+      "part_number": "84628114"
+    },
+    {
+      "id": "B050",
+      "name": "Side Mirror - Driver Side",
+      "description": "Replacement driver-side mirror assembly with power adjust, heating, and turn signal indicator.",
+      "price": 475.00,
+      "compatibility": [
+        {"model": "Envision", "years": [2021, 2022, 2023, 2024]}
+      ],
+      "category": "Exterior",
+      "in_stock": true,
+      "part_number": "84581238"
+    },
+    {
+      "id": "B051",
+      "name": "Grille - Black Ice Chrome",
+      "description": "Give your Enclave a custom look with this stylish Black Ice Chrome grille.",
+      "price": 650.00,
+      "compatibility": [
+        {"model": "Enclave", "years": [2022, 2023, 2024]}
+      ],
+      "category": "Exterior",
+      "in_stock": true,
+      "part_number": "84628115"
+    },
+    {
+      "id": "B052",
+      "name": "Fuel Injector",
+      "description": "Precision fuel injector for optimal fuel atomization, performance, and efficiency.",
+      "price": 120.00,
+      "compatibility": [
+        {"model": "Encore GX", "years": [2020, 2021, 2022, 2023, 2024]}
+      ],
+      "category": "Maintenance",
+      "in_stock": true,
+      "part_number": "12672368"
+    },
+    {
+      "id": "B053",
+      "name": "Ignition Coil",
+      "description": "Replacement ignition coil to ensure a strong, reliable spark for efficient combustion.",
+      "price": 85.00,
+      "compatibility": [
+        {"model": "Encore GX", "years": [2020, 2021, 2022, 2023, 2024]}
+      ],
+      "category": "Maintenance",
+      "in_stock": true,
+      "part_number": "12674753"
+    },
+    {
+      "id": "B054",
+      "name": "Oxygen Sensor",
+      "description": "Monitors the oxygen level in your exhaust to help your engine run efficiently and reduce emissions.",
+      "price": 95.00,
+      "compatibility": [
+        {"model": "Enclave", "years": [2018, 2019, 2020, 2021, 2022, 2023, 2024]}
+      ],
+      "category": "Maintenance",
+      "in_stock": true,
+      "part_number": "12666649"
+    },
+    {
+      "id": "B055",
+      "name": "Mass Airflow Sensor",
+      "description": "Measures the amount of air entering the engine to ensure the correct air-fuel mixture for optimal performance.",
+      "price": 180.00,
+      "compatibility": [
+        {"model": "Enclave", "years": [2018, 2019, 2020, 2021, 2022, 2023, 2024]}
+      ],
+      "category": "Maintenance",
+      "in_stock": true,
+      "part_number": "12671624"
+    },
+    {
+      "id": "B056",
+      "name": "Alternator",
+      "description": "High-output alternator to keep your battery charged and power your vehicle's electrical systems.",
+      "price": 550.00,
+      "compatibility": [
+        {"model": "Envision", "years": [2016, 2017, 2018, 2019, 2020]}
+      ],
+      "category": "Maintenance",
+      "in_stock": true,
+      "part_number": "84290372"
+    },
+    {
+      "id": "B057",
+      "name": "Starter Motor",
+      "description": "Powerful starter motor for reliable engine starts every time.",
+      "price": 420.00,
+      "compatibility": [
+        {"model": "Envision", "years": [2016, 2017, 2018, 2019, 2020]}
+      ],
+      "category": "Maintenance",
+      "in_stock": true,
+      "part_number": "12674292"
+    },
+    {
+      "id": "B058",
+      "name": "Suspension Strut - Front",
+      "description": "Restore your vehicle's original ride and handling with this complete front strut assembly.",
+      "price": 320.00,
+      "compatibility": [
+        {"model": "Encore GX", "years": [2020, 2021, 2022, 2023, 2024]}
+      ],
+      "category": "Suspension",
+      "in_stock": true,
+      "part_number": "84581239"
+    },
+    {
+      "id": "B059",
+      "name": "Shock Absorber - Rear",
+      "description": "Replacement rear shock absorber to control unwanted bouncing and provide a smooth, comfortable ride.",
+      "price": 180.00,
+      "compatibility": [
+        {"model": "Encore GX", "years": [2020, 2021, 2022, 2023, 2024]}
+      ],
+      "category": "Suspension",
+      "in_stock": true,
+      "part_number": "84581240"
+    },
+    {
+      "id": "B060",
+      "name": "Sway Bar Link",
+      "description": "Connects your vehicle's sway bar to the suspension to reduce body roll during cornering.",
+      "price": 60.00,
+      "compatibility": [
+        {"model": "Enclave", "years": [2018, 2019, 2020, 2021, 2022, 2023, 2024]}
+      ],
+      "category": "Suspension",
+      "in_stock": true,
+      "part_number": "23427737"
+    },
+    {
+      "id": "B061",
+      "name": "Control Arm - Front Lower",
+      "description": "Complete front lower control arm assembly with ball joint and bushings.",
+      "price": 450.00,
+      "compatibility": [
+        {"model": "Envision", "years": [2016, 2017, 2018, 2019, 2020]}
+      ],
+      "category": "Suspension",
+      "in_stock": true,
+      "part_number": "84301399"
+    },
+    {
+      "id": "B062",
+      "name": "Wheel Bearing and Hub Assembly",
+      "description": "Pre-assembled wheel hub and bearing for a direct-fit replacement. Ensures smooth, quiet wheel rotation.",
+      "price": 280.00,
+      "compatibility": [
+        {"model": "Enclave", "years": [2018, 2019, 2020, 2021, 2022, 2023, 2024]}
+      ],
+      "category": "Suspension",
+      "in_stock": true,
+      "part_number": "13512821"
+    },
+    {
+      "id": "B063",
+      "name": "CV Axle Shaft",
+      "description": "Constant velocity (CV) axle shaft to transfer power from the transmission to the wheels.",
+      "price": 380.00,
+      "compatibility": [
+        {"model": "Encore GX", "years": [2020, 2021, 2022, 2023, 2024]}
+      ],
+      "category": "Drivetrain",
+      "in_stock": true,
+      "part_number": "84581241"
+    },
+    {
+      "id": "B064",
+      "name": "Transmission Fluid - Full Synthetic",
+      "description": "Full synthetic automatic transmission fluid for smooth shifting and long transmission life. 1 Quart.",
+      "price": 25.00,
+      "compatibility": [
+        {"model": "Enclave", "years": [2018, 2019, 2020, 2021, 2022, 2023, 2024]},
+        {"model": "Envision", "years": [2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024]},
+        {"model": "Encore GX", "years": [2020, 2021, 2022, 2023, 2024]},
+        {"model": "Envista", "years": [2024]}
+      ],
+      "category": "Maintenance",
+      "in_stock": true,
+      "part_number": "19352619"
+    },
+    {
+      "id": "B065",
+      "name": "Power Steering Fluid",
+      "description": "Maintains smooth, quiet operation of your vehicle's power steering system. 1 Quart.",
+      "price": 18.00,
+      "compatibility": [
+        {"model": "Enclave", "years": [2018, 2019, 2020, 2021, 2022, 2023, 2024]}
+      ],
+      "category": "Maintenance",
+      "in_stock": true,
+      "part_number": "19329450"
+    },
+    {
+      "id": "B066",
+      "name": "Brake Fluid - DOT 4",
+      "description": "High-temperature DOT 4 brake fluid for use in all Buick hydraulic brake systems. 12 oz bottle.",
+      "price": 15.00,
+      "compatibility": [
+        {"model": "Enclave", "years": [2018, 2019, 2020, 2021, 2022, 2023, 2024]},
+        {"model": "Envision", "years": [2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024]},
+        {"model": "Encore GX", "years": [2020, 2021, 2022, 2023, 2024]},
+        {"model": "Envista", "years": [2024]}
+      ],
+      "category": "Maintenance",
+      "in_stock": true,
+      "part_number": "19299818"
+    },
+    {
+      "id": "B067",
+      "name": "Coolant / Antifreeze - 50/50 Pre-mixed",
+      "description": "Pre-mixed 50/50 long-life coolant and antifreeze. Protects against freezing, boiling, and corrosion. 1 Gallon.",
+      "price": 35.00,
+      "compatibility": [
+        {"model": "Enclave", "years": [2018, 2019, 2020, 2021, 2022, 2023, 2024]},
+        {"model": "Envision", "years": [2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024]},
+        {"model": "Encore GX", "years": [2020, 2021, 2022, 2023, 2024]},
+        {"model": "Envista", "years": [2024]}
+      ],
+      "category": "Maintenance",
+      "in_stock": true,
+      "part_number": "12346290"
+    },
+    {
+      "id": "B068",
+      "name": "Windshield Washer Fluid - All Season",
+      "description": "Removes dirt, grime, and bugs for a clear view. Protects down to -20°F. 1 Gallon.",
+      "price": 8.99,
+      "compatibility": [
+        {"model": "Enclave", "years": [2018, 2019, 2020, 2021, 2022, 2023, 2024]},
+        {"model": "Envision", "years": [2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024]},
+        {"model": "Encore GX", "years": [2020, 2021, 2022, 2023, 2024]},
+        {"model": "Envista", "years": [2024]}
+      ],
+      "category": "Maintenance",
+      "in_stock": true,
+      "part_number": "88862699"
+    },
+    {
+      "id": "B069",
+      "name": "Floor Mats - Carpet Replacement",
+      "description": "Premium carpeted floor mats to match your vehicle's interior. Set of four, with Buick logo.",
+      "price": 160.00,
+      "compatibility": [
+        {"model": "Envista", "years": [2024]}
+      ],
+      "category": "Interior",
+      "in_stock": true,
+      "part_number": "84662865"
+    },
+    {
+      "id": "B070",
+      "name": "Door Edge Guards",
+      "description": "Help protect your door edges from chips and nicks with these clear, durable guards.",
+      "price": 80.00,
+      "compatibility": [
+        {"model": "Enclave", "years": [2018, 2019, 2020, 2021, 2022, 2023, 2024]},
+        {"model": "Envision", "years": [2021, 2022, 2023, 2024]},
+        {"model": "Encore GX", "years": [2020, 2021, 2022, 2023, 2024]},
+        {"model": "Envista", "years": [2024]}
+      ],
+      "category": "Exterior",
+      "in_stock": true,
+      "part_number": "19367129"
+    },
+    {
+      "id": "B071",
+      "name": "Paint Protection Film",
+      "description": "A clear, durable film applied to the front of your vehicle to protect the paint from stone chips, bugs, and other road debris.",
+      "price": 750.00,
+      "compatibility": [
+        {"model": "Enclave", "years": [2022, 2023, 2024]},
+        {"model": "Envision", "years": [2023, 2024]}
+      ],
+      "category": "Exterior",
+      "in_stock": true,
+      "part_number": "19367130"
+    },
+    {
+      "id": "B072",
+      "name": "Interior Trim Kit - Carbon Fiber Look",
+      "description": "Upgrade your interior with this stylish trim kit that provides the look of carbon fiber. Applies to dash and door panels.",
+      "price": 450.00,
+      "compatibility": [
+        {"model": "Encore GX", "years": [2021, 2022, 2023, 2024]}
+      ],
+      "category": "Interior",
+      "in_stock": true,
+      "part_number": "84822816"
+    },
+    {
+      "id": "B073",
+      "name": "Remote Start Kit",
+      "description": "Start your vehicle from up to 200 feet away, allowing you to warm up or cool down the cabin before you get in.",
+      "price": 425.00,
+      "compatibility": [
+        {"model": "Encore GX", "years": [2020, 2021]}
+      ],
+      "category": "Electronics",
+      "in_stock": true,
+      "part_number": "84526981"
+    },
+    {
+      "id": "B074",
+      "name": "Performance Air Intake",
+      "description": "Increase horsepower and torque with this performance air intake system. Features a reusable high-flow air filter.",
+      "price": 550.00,
+      "compatibility": [
+        {"model": "Enclave", "years": [2018, 2019, 2020, 2021]}
+      ],
+      "category": "Performance",
+      "in_stock": false,
+      "part_number": "84301400"
+    },
+    {
+      "id": "B075",
+      "name": "Cat-Back Exhaust System",
+      "description": "Give your vehicle a more aggressive sound and a slight performance boost with this stainless steel cat-back exhaust system.",
+      "price": 1250.00,
+      "compatibility": [
+        {"model": "Enclave", "years": [2018, 2019, 2020, 2021]}
+      ],
+      "category": "Performance",
+      "in_stock": true,
+      "part_number": "84301401"
+    },
+    {
+      "id": "B076",
+      "name": "Suspension Lowering Kit",
+      "description": "Improve handling and give your vehicle a more aggressive stance with this suspension lowering kit. Lowers vehicle approximately 1 inch.",
+      "price": 850.00,
+      "compatibility": [
+        {"model": "Envision", "years": [2021, 2022, 2023]}
+      ],
+      "category": "Suspension",
+      "in_stock": true,
+      "part_number": "84581242"
+    },
+    {
+      "id": "B077",
+      "name": "Performance Brake Upgrade Kit",
+      "description": "Improve your vehicle's stopping power with this performance brake kit. Includes drilled and slotted rotors and high-performance pads.",
+      "price": 950.00,
+      "compatibility": [
+        {"model": "Envision", "years": [2021, 2022, 2023, 2024]}
+      ],
+      "category": "Brakes",
+      "in_stock": true,
+      "part_number": "84581243"
+    },
+    {
+      "id": "B078",
+      "name": "Interior Protection Package",
+      "description": "A complete package to protect your interior. Includes all-weather floor liners and an integrated cargo liner.",
+      "price": 350.00,
+      "compatibility": [
+        {"model": "Enclave", "years": [2022, 2023, 2024]}
+      ],
+      "category": "Packages",
+      "in_stock": true,
+      "part_number": "PCK001"
+    },
+    {
+      "id": "B079",
+      "name": "Exterior Protection Package",
+      "description": "Keep your exterior looking new. Includes molded splash guards and a rear bumper protector.",
+      "price": 220.00,
+      "compatibility": [
+        {"model": "Encore GX", "years": [2022, 2023, 2024]}
+      ],
+      "category": "Packages",
+      "in_stock": true,
+      "part_number": "PCK002"
+    },
+    {
+      "id": "B080",
+      "name": "Towing Essentials Package",
+      "description": "Everything you need to start towing. Includes hitch trailering package and a 2-inch trailer ball.",
+      "price": 950.00,
+      "compatibility": [
+        {"model": "Enclave", "years": [2018, 2019, 2020, 2021, 2022, 2023, 2024]}
+      ],
+      "category": "Packages",
+      "in_stock": true,
+      "part_number": "PCK003"
+    },
+    {
+      "id": "B081",
+      "name": "Winter Prep Package",
+      "description": "Get ready for winter weather. Includes all-weather floor liners, a windshield sunshade (for frost), and a set of winter wiper blades.",
+      "price": 300.00,
+      "compatibility": [
+        {"model": "Envision", "years": [2021, 2022, 2023, 2024]}
+      ],
+      "category": "Packages",
+      "in_stock": true,
+      "part_number": "PCK004"
+    },
+    {
+      "id": "B082",
+      "name": "Road Trip Package",
+      "description": "Perfect for your next adventure. Includes roof rack cross rails and a rooftop cargo carrier.",
+      "price": 950.00,
+      "compatibility": [
+        {"model": "Enclave", "years": [2020, 2021, 2022, 2023, 2024]}
+      ],
+      "category": "Packages",
+      "in_stock": true,
+      "part_number": "PCK005"
+    },
+    {
+      "id": "B083",
+      "name": "Avenir Appearance Package",
+      "description": "Enhance the luxury of your Avenir. Includes illuminated door sills and a Black Ice Chrome grille.",
+      "price": 975.00,
+      "compatibility": [
+        {"model": "Enclave", "years": [2022, 2023, 2024]}
+      ],
+      "category": "Packages",
+      "in_stock": true,
+      "part_number": "PCK006"
+    },
+    {
+      "id": "B084",
+      "name": "Sport Touring Appearance Package",
+      "description": "Give your ST a more aggressive look. Includes sport pedal covers and a polished stainless steel exhaust tip.",
+      "price": 270.00,
+      "compatibility": [
+        {"model": "Encore GX", "years": [2021, 2022, 2023, 2024]}
+      ],
+      "category": "Packages",
+      "in_stock": true,
+      "part_number": "PCK007"
+    },
+    {
+      "id": "B085",
+      "name": "Cargo Management Package",
+      "description": "Keep your cargo area organized. Includes a cargo area organizer and an envelope-style cargo net.",
+      "price": 200.00,
+      "compatibility": [
+        {"model": "Envision", "years": [2021, 2022, 2023, 2024]}
+      ],
+      "category": "Packages",
+      "in_stock": true,
+      "part_number": "PCK008"
+    },
+    {
+      "id": "B086",
+      "name": "Pet Travel Package",
+      "description": "Make traveling with your pet easier and safer. Includes a pet barrier and an all-weather cargo liner.",
+      "price": 475.00,
+      "compatibility": [
+        {"model": "Enclave", "years": [2021, 2022, 2023, 2024]}
+      ],
+      "category": "Packages",
+      "in_stock": true,
+      "part_number": "PCK009"
+    },
+    {
+      "id": "B087",
+      "name": "Safety and Security Package",
+      "description": "Be prepared for anything. Includes a first aid kit, a roadside emergency kit, and a wheel lock kit.",
+      "price": 210.00,
+      "compatibility": [
+        {"model": "Envista", "years": [2024]}
+      ],
+      "category": "Packages",
+      "in_stock": true,
+      "part_number": "PCK010"
+    },
+    {
+      "id": "B088",
+      "name": "Headrest DVD Player",
+      "description": "Single headrest DVD player with a 9-inch screen. Perfect for keeping one child entertained on long trips.",
+      "price": 995.00,
+      "compatibility": [
+        {"model": "Enclave", "years": [2018, 2019, 2020]}
+      ],
+      "category": "Electronics",
+      "in_stock": true,
+      "part_number": "19367131"
+    },
+    {
+      "id": "B089",
+      "name": "Dash Cam - Front Facing",
+      "description": "Record your drives for safety and security. This front-facing dash cam records in full HD and has a G-sensor to automatically save footage of incidents.",
+      "price": 250.00,
+      "compatibility": [
+        {"model": "Enclave", "years": [2018, 2019, 2020, 2021, 2022, 2023, 2024]},
+        {"model": "Envision", "years": [2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024]},
+        {"model": "Encore GX", "years": [2020, 2021, 2022, 2023, 2024]},
+        {"model": "Envista", "years": [2024]}
+      ],
+      "category": "Electronics",
+      "in_stock": true,
+      "part_number": "84526982"
+    },
+    {
+      "id": "B090",
+      "name": "Rear View Mirror with HomeLink",
+      "description": "Upgrade your mirror to include HomeLink, allowing you to open and close garage doors and security gates with the touch of a button.",
+      "price": 350.00,
+      "compatibility": [
+        {"model": "Encore GX", "years": [2020, 2021, 2022]}
+      ],
+      "category": "Electronics",
+      "in_stock": true,
+      "part_number": "84526983"
+    },
+    {
+      "id": "B091",
+      "name": "Kayak Carrier - Roof Mounted",
+      "description": "Securely transport your kayak with this J-style roof-mounted carrier. Requires roof rack cross rails.",
+      "price": 250.00,
+      "compatibility": [
+        {"model": "Enclave", "years": [2018, 2019, 2020, 2021, 2022, 2023, 2024]},
+        {"model": "Envision", "years": [2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024]}
+      ],
+      "category": "Exterior",
+      "in_stock": true,
+      "part_number": "19367132"
+    },
+    {
+      "id": "B092",
+      "name": "Ski Carrier - Roof Mounted",
+      "description": "Carry up to six pairs of skis or four snowboards. Features oversized buttons for easy opening with gloves on. Requires roof rack cross rails.",
+      "price": 350.00,
+      "compatibility": [
+        {"model": "Enclave", "years": [2018, 2019, 2020, 2021, 2022, 2023, 2024]},
+        {"model": "Envision", "years": [2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024]}
+      ],
+      "category": "Exterior",
+      "in_stock": true,
+      "part_number": "19367133"
+    },
+    {
+      "id": "B093",
+      "name": "Rooftop Cargo Box - Large",
+      "description": "Add 17 cubic feet of lockable storage space to your vehicle. Perfect for luggage, camping gear, and more. Requires roof rack cross rails.",
+      "price": 750.00,
+      "compatibility": [
+        {"model": "Enclave", "years": [2018, 2019, 2020, 2021, 2022, 2023, 2024]}
+      ],
+      "category": "Exterior",
+      "in_stock": true,
+      "part_number": "19367134"
+    },
+    {
+      "id": "B094",
+      "name": "Running Boards - Integrated",
+      "description": "Make it easier to get in and out of your Enclave with these stylish and sturdy integrated running boards.",
+      "price": 950.00,
+      "compatibility": [
+        {"model": "Enclave", "years": [2018, 2019, 2020, 2021, 2022, 2023, 2024]}
+      ],
+      "category": "Exterior",
+      "in_stock": true,
+      "part_number": "84301402"
+    },
+    {
+      "id": "B095",
+      "name": "Tire Chains",
+      "description": "For extreme winter conditions, these tire chains provide maximum traction on snow and ice. For rear wheels only on AWD models.",
+      "price": 180.00,
+      "compatibility": [
+        {"model": "Enclave", "years": [2018, 2019, 2020, 2021, 2022, 2023, 2024]}
+      ],
+      "category": "Safety",
+      "in_stock": true,
+      "part_number": "19367135"
+    },
+    {
+      "id": "B096",
+      "name": "Locking Gas Cap",
+      "description": "A simple way to add a layer of security to your vehicle. This locking gas cap helps prevent fuel theft and tampering.",
+      "price": 35.00,
+      "compatibility": [
+        {"model": "Enclave", "years": [2018, 2019, 2020, 2021, 2022, 2023, 2024]},
+        {"model": "Envision", "years": [2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024]},
+        {"model": "Encore GX", "years": [2020, 2021, 2022, 2023, 2024]},
+        {"model": "Envista", "years": [2024]}
+      ],
+      "category": "Security",
+      "in_stock": true,
+      "part_number": "19367013"
+    },
+    {
+      "id": "B097",
+      "name": "Battery Blanket / Heater",
+      "description": "For extremely cold climates, this battery blanket helps keep your battery warm for easier starting.",
+      "price": 95.00,
+      "compatibility": [
+        {"model": "Enclave", "years": [2018, 2019, 2020, 2021, 2022, 2023, 2024]},
+        {"model": "Envision", "years": [2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024]},
+        {"model": "Encore GX", "years": [2020, 2021, 2022, 2023, 2024]},
+        {"model": "Envista", "years": [2024]}
+      ],
+      "category": "Maintenance",
+      "in_stock": true,
+      "part_number": "19367136"
+    },
+    {
+      "id": "B098",
+      "name": "Block Heater",
+      "description": "Helps warm your engine in cold weather for easier starting and faster cabin warm-up.",
+      "price": 150.00,
+      "compatibility": [
+        {"model": "Enclave", "years": [2018, 2019, 2020, 2021, 2022, 2023, 2024]}
+      ],
+      "category": "Maintenance",
+      "in_stock": true,
+      "part_number": "19367137"
+    },
+    {
+      "id": "B099",
+      "name": "Touch-Up Paint Pen - Ebony Twilight Metallic",
+      "description": "Fix minor scratches and chips with this easy-to-use touch-up paint pen. Matches your vehicle's factory color perfectly.",
+      "price": 25.50,
+      "compatibility": [
+        {"model": "Enclave", "years": [2018, 2019, 2020, 2021, 2022, 2023, 2024]},
+        {"model": "Envision", "years": [2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024]},
+        {"model": "Encore GX", "years": [2020, 2021, 2022, 2023, 2024]},
+        {"model": "Envista", "years": [2024]}
+      ],
+      "category": "Maintenance",
+      "in_stock": true,
+      "part_number": "WA8555"
+    },
+    {
+      "id": "B100",
+      "name": "Touch-Up Paint Pen - Cinnabar Metallic",
+      "description": "Fix minor scratches and chips with this easy-to-use touch-up paint pen. Matches your vehicle's factory color perfectly.",
+      "price": 25.50,
+      "compatibility": [
+        {"model": "Envision", "years": [2023, 2024]},
+        {"model": "Envista", "years": [2024]}
+      ],
+      "category": "Maintenance",
+      "in_stock": true,
+      "part_number": "WA131X"
+    },
+    {
+      "id": "B101",
+      "name": "19-Inch Aluminum Wheels - Avenir Pearl Nickel",
+      "description": "Exclusive Avenir 19-inch wheels with a Pearl Nickel finish. Set of four.",
+      "price": 2495.00,
+      "compatibility": [
+        {"model": "Envista", "years": [2024]}
+      ],
+      "category": "Wheels",
+      "in_stock": true,
+      "part_number": "84628116"
+    }
+  ]
+}
