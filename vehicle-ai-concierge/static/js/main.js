@@ -12,7 +12,7 @@ const uploadButton = document.getElementById('upload-button');
 const fileUpload = document.getElementById('file-upload');
 const suggestionItems = document.querySelectorAll('.suggestion-item');
 
-// Elements for the side panel
+// NEW: Elements for the side panel
 const sidePanel = document.getElementById('side-panel');
 const sidePanelContent = document.getElementById('side-panel-content');
 const closePanelButton = document.getElementById('close-panel-button');
@@ -28,11 +28,10 @@ const editImageButton = document.getElementById('edit-image-button');
 
 let isChatActive = false;
 let isAudioActive = false;
-let userId = "111"; // Example user ID
 
 // Store rich content data globally
 window.searchResultsStore = {};
-window.dealershipsStore = {}; 
+window.dealershipsStore = {};
 window.accessoriesStore = {};
 window.leadStore = {};
 
@@ -93,6 +92,7 @@ const displayUserMessage = (message) => {
 
 // Helper function to convert snake_case to Title Case for display labels
 const toTitleCase = (str) => {
+    if (!str) return '';
     return str.replace(/_/g, ' ')
               .replace(/\w\S*/g, (txt) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase());
 };
@@ -103,42 +103,27 @@ const displayAgentResponse = (response) => {
     agentResponseDiv.className = 'mb-6 animate-fade-in';
     
     let richContentHtml = '';
-    let displayText = response.text;
+    let displayText = response.text || ""; // Fallback for empty text
 
-    // UI Cleanup: If the text looks like raw JSON, show a generic message.
-    if (displayText && (displayText.trim().startsWith('```json') || (displayText.trim().startsWith('{') && displayText.trim().endsWith('}')))) {
-        displayText = "I've found some information for you. Please see the options below.";
-    }
+    // --- FIX: Add a more robust check for valid rich content ---
+    const hasRichContent = response.rich_content && 
+                           Array.isArray(response.rich_content) && 
+                           response.rich_content.length > 0 &&
+                           Object.keys(response.rich_content[0]).length > 0;
 
-
-    if (response.rich_content && response.rich_content.length > 0) {
+    if (hasRichContent) {
         const firstItem = response.rich_content[0];
 
         // Case 1: Website Search Results
-        if (firstItem.snippet !== undefined && firstItem.link !== undefined) {
+        if (firstItem.pageUrl !== undefined && firstItem.snippets !== undefined) {
             const resultsId = `results-${Date.now()}`;
             window.searchResultsStore[resultsId] = response.rich_content;
-            
-            const hasImages = response.rich_content.some(item => item.image);
-            if (hasImages) {
-                let galleryHtml = '<div class="mt-4 image-gallery-container">';
-                response.rich_content.forEach(item => {
-                    if (item.image) {
-                        galleryHtml += `
-                            <div class="image-gallery-item" data-full-src="${item.image}">
-                                <img src="${item.image}" alt="${item.title}">
-                            </div>
-                        `;
-                    }
-                });
-                galleryHtml += '</div>';
-                richContentHtml += galleryHtml;
-            }
 
-            richContentHtml += `
+            richContentHtml = `
                 <div class="mt-4">
-                    <button class="search-results-pill inline-flex items-center bg-transparent border-2 border-red-500 text-red-600 rounded-full px-4 py-1 text-sm font-semibold cursor-pointer hover:bg-red-50 transition-colors" data-results-id="${resultsId}">
-                        View All Search Results
+                    <button class="search-results-chip" data-results-id="${resultsId}">
+                        <span class="material-icons mr-2 text-base">search</span>
+                        View ${response.rich_content.length} Search Results
                     </button>
                 </div>
             `;
@@ -174,49 +159,7 @@ const displayAgentResponse = (response) => {
             accessoryCardsHtml += '</div>';
             richContentHtml = accessoryCardsHtml;
         }
-        // Case 4: Lead Generation Confirmation
-        else if (firstItem.first_name && firstItem.vehicle_model) {
-            const leadData = firstItem;
-            const leadId = `lead-${Date.now()}`;
-            window.leadStore[leadId] = leadData; 
-
-            let detailsHtml = '';
-            const displayOrder = [
-                'first_name', 'last_name', 'vehicle_model', 'vehicle_year', 
-                'email', 'phone_number', 'zip_code', 'contact_preference'
-            ];
-
-            displayOrder.forEach(key => {
-                if (leadData[key] && key !== 'dealer_summary' && key !== 'notes') { // Exclude notes from main card
-                    detailsHtml += `<p><strong>${toTitleCase(key)}:</strong> ${leadData[key]}</p>`;
-                }
-            });
-
-            let summaryPillHtml = '';
-            if (leadData.dealer_summary || leadData.notes) {
-                summaryPillHtml = `
-                    <div class="mt-4">
-                         <button class="dealer-summary-pill inline-flex items-center bg-gray-200 text-gray-700 rounded-full px-4 py-1 text-sm font-semibold cursor-pointer hover:bg-gray-300 transition-colors" data-lead-id="${leadId}">
-                            View Notes for Dealer
-                        </button>
-                    </div>
-                `;
-            }
-
-            richContentHtml = `
-                <div class="mt-4 lead-confirmation-card">
-                    <h3 class="font-bold text-lg mb-3 text-gray-900">Please Confirm Your Information</h3>
-                    <div class="lead-details">
-                        ${detailsHtml}
-                    </div>
-                    <div class="mt-4">
-                        <button class="w-full bg-blue-600 text-white rounded-lg px-4 py-2 font-semibold hover:bg-blue-700 transition-colors">Looks Good, Get My Quote!</button>
-                    </div>
-                </div>
-                ${summaryPillHtml}
-            `;
-        }
-        // Case 5: Edited Image
+        // Case 4: Edited Image
         else if (firstItem.image_url) {
             richContentHtml = `<div class="edited-image-card mt-4"><img src="${firstItem.image_url}" alt="Edited vehicle image"></div>`;
         }
@@ -250,7 +193,7 @@ const processQuery = async (queryOverride = null) => {
         const response = await fetch('/chat', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ user_id: userId, message: query }),
+            body: JSON.stringify({ message: query }),
         });
 
         chatResults.removeChild(loadingDiv); 
@@ -267,6 +210,7 @@ const processQuery = async (queryOverride = null) => {
     }
 };
 
+// NEW: Functions to manage the side panel
 const openSidePanelWithContent = (title, content) => {
     document.querySelector('#side-panel h2').innerHTML = `<span class="material-icons mr-2">${title.icon}</span> ${title.text}`;
     sidePanelContent.innerHTML = content;
@@ -278,18 +222,18 @@ const openSearchResultsPanel = (resultsId) => {
     const results = window.searchResultsStore[resultsId];
     if (!results) return;
 
-    let content = '<div class="space-y-4">';
+    let content = '<div class="space-y-6">';
     results.forEach(item => {
         let imageHtml = '';
-        if (item.image) {
-            imageHtml = `<img src="${item.image}" alt="${item.title}" class="w-full h-auto rounded-lg mb-2 object-cover">`;
+        if (item.imageUrl) {
+            imageHtml = `<img src="${item.imageUrl}" alt="${item.title}" class="w-full h-auto rounded-lg mb-2 object-cover">`;
         }
         content += `
             <div class="border-b pb-4 last:border-b-0">
                 ${imageHtml}
-                <a href="${item.link}" target="_blank" class="text-lg font-semibold text-blue-600 hover:underline">${item.title}</a>
-                <p class="text-sm text-gray-600 mt-1">${item.snippet}</p>
-                <a href="${item.link}" target="_blank" class="text-xs text-gray-500 truncate block mt-1 hover:text-blue-500">${item.link}</a>
+                <a href="${item.pageUrl}" target="_blank" class="text-lg font-semibold text-blue-600 hover:underline">${item.title}</a>
+                <p class="text-sm text-gray-600 mt-1">${item.snippets.join('<br>')}</p>
+                <a href="${item.pageUrl}" target="_blank" class="text-xs text-gray-500 truncate block mt-1 hover:text-blue-500">${item.pageUrl}</a>
             </div>`;
     });
     content += '</div>';
@@ -320,7 +264,6 @@ const openDealerPanel = (dealerId) => {
                 <p class="text-md text-gray-600">${dealer.address}</p>
                 <p class="text-md text-gray-600">Phone: ${dealer.phone}</p>
                 ${dealer.distance_miles ? `<p class="text-sm text-gray-500 mt-1">Approx. ${dealer.distance_miles.toFixed(1)} miles away</p>` : ''}
-                <a href="[https://www.buick.com](https://www.buick.com)" target="_blank" class="text-blue-600 hover:underline mt-2 inline-block">Visit Website</a>
             </div>
             <div class="border-t pt-4">
                 <h4 class="font-semibold text-gray-700">Hours</h4>
@@ -362,14 +305,9 @@ const openAccessoryPanel = (accessoryId) => {
      openSidePanelWithContent({icon: 'build', text: 'Accessory Details'}, content);
 };
 
-const openDealerSummaryPanel = (leadId) => {
-    const lead = window.leadStore[leadId];
-    if (!lead) return;
-    
-    const summaryText = lead.dealer_summary || lead.notes || "No additional notes were provided.";
-
-    const content = `<p class="text-base text-gray-700 whitespace-pre-wrap">${summaryText}</p>`;
-    openSidePanelWithContent({icon: 'description', text: 'Notes for Dealer'}, content);
+const closeSidePanel = () => {
+    overlay.classList.add('hidden');
+    sidePanel.classList.add('translate-x-full');
 };
 
 // Functions to handle the image modal
@@ -385,11 +323,6 @@ const closeImageModal = () => {
 };
 
 
-const closeSidePanel = () => {
-    overlay.classList.add('hidden');
-    sidePanel.classList.add('translate-x-full');
-};
-
 // Event Listeners
 micButton.addEventListener('click', toggleAudioMode);
 uploadButton.addEventListener('click', () => fileUpload.click());
@@ -401,7 +334,6 @@ imageModal.addEventListener('click', (e) => {
     }
 });
 
-// NEW: Event listener for the image edit button
 editImageButton.addEventListener('click', () => {
     const imageUrl = modalImage.src;
     const prompt = imageEditPrompt.value.trim();
@@ -430,17 +362,19 @@ suggestionItems.forEach(item => {
     });
 });
 
+// NEW: Add event listeners for side panel
 closePanelButton.addEventListener('click', closeSidePanel);
 overlay.addEventListener('click', closeSidePanel);
 
 // Use event delegation for dynamically created rich content
 chatResults.addEventListener('click', (e) => {
-    const searchPill = e.target.closest('.search-results-pill');
-    if (searchPill) {
-        openSearchResultsPanel(searchPill.dataset.resultsId);
+    // UPDATED: Check for the new search results chip
+    const searchChip = e.target.closest('.search-results-chip');
+    if (searchChip) {
+        openSearchResultsPanel(searchChip.dataset.resultsId);
         return;
     }
-
+    
     const dealerCard = e.target.closest('.dealer-chip-card');
     if (dealerCard) {
         openDealerPanel(dealerCard.dataset.dealerId);
@@ -453,15 +387,10 @@ chatResults.addEventListener('click', (e) => {
         return;
     }
 
-    const summaryPill = e.target.closest('.dealer-summary-pill');
-    if (summaryPill) {
-        openDealerSummaryPanel(summaryPill.dataset.leadId);
-        return;
-    }
-
     const galleryItem = e.target.closest('.image-gallery-item');
     if (galleryItem) {
         openImageModal(galleryItem.dataset.fullSrc);
         return;
     }
 });
+

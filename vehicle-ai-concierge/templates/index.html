@@ -13,7 +13,7 @@
 </head>
 <body class="text-gray-800">
 
-<!-- Side Panel for Search Results (initially hidden) -->
+<!-- NEW: Side Panel for Search Results (initially hidden) -->
 <div id="side-panel" class="fixed top-0 right-0 h-full w-full max-w-xl bg-white shadow-2xl transform translate-x-full z-50 flex flex-col">
     <div class="p-4 flex justify-between items-center border-b flex-shrink-0">
         <h2 class="text-xl font-bold text-gray-800 flex items-center">
@@ -24,12 +24,13 @@
             <span class="material-icons">close</span>
         </button>
     </div>
-    <div id="side-panel-content" class="p-4 overflow-y-auto flex-grow">
+    <div id="side-panel-content" class="p-6 overflow-y-auto flex-grow">
         <!-- Search result links will be injected here by JavaScript -->
     </div>
 </div>
-<!-- Overlay for when panel is open -->
+<!-- NEW: Overlay for when panel is open -->
 <div id="overlay" class="fixed inset-0 bg-black bg-opacity-50 hidden z-40"></div>
+
 
 <!-- UPDATED: Image Modal with Edit Controls -->
 <div id="image-modal" class="fixed inset-0 bg-black bg-opacity-75 hidden z-50 items-center justify-center p-4">

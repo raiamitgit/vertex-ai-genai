@@ -1,6 +1,3 @@
-# File: tools/image_editor_tool.py
-# Description: A tool for editing an image and uploading it to Google Cloud Storage.
-
 import requests
 import uuid
 import datetime

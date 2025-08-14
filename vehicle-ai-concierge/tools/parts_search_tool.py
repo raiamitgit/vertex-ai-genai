@@ -1,6 +1,3 @@
-# File: tools/parts_search_tool.py
-# Description: A tool for searching for parts and accessories from a local JSON file.
-
 import json
 import os
 from typing import Optional, List, Dict, Any

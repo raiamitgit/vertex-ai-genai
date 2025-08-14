@@ -4,5 +4,5 @@ google-genai
 google-adk
 google-cloud-storage
 google-cloud-aiplatform
-google-cloud-discoveryengine
+google-cloud-discoveryengine==0.11.14
 gunicorn

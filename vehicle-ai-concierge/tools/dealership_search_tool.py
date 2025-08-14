@@ -1,6 +1,3 @@
-# File: tools/dealership_search_tool.py
-# Description: A tool for finding the nearest dealerships based on a zip code.
-
 import json
 import os
 import math
