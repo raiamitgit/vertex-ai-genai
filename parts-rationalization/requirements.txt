@@ -1,0 +1,7 @@
+google-adk==1.15.1
+google-cloud-aiplatform[agent_engines]==1.115.1
+google-genai==1.21.1
+google-cloud-storage
+google-cloud-bigquery
+google-cloud-logging
+python-dotenv
