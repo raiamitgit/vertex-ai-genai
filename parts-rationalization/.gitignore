@@ -1,16 +1,47 @@
-# Byte-compiled / optimized / DLL files
-*/__pycache__/
-
 # Environments
 .env
+.env.*
+.venv/
+venv/
+ENV/
 
-# Others
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# OS files
 .DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
 
-# Local 'adk web' logs
+# Editors
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Project specific
 adk_web_log.txt
 adk_web_log*.txt
-
-# Local VSCode settings
-.vscode/
-*.pyc

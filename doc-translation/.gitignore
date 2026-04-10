@@ -1,0 +1,30 @@
+# Environments
+.env
+.env.*
+.venv/
+venv/
+ENV/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Node / JS
+node_modules/
+.npm
+.eslintcache
+
+# OS files
+.DS_Store
+._*
+
+# Editors
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Project specific
+backend/output.pptx
