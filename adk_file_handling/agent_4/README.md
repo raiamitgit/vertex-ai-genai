@@ -11,4 +11,4 @@ The key goal of this agent is to showcase how to use Code Execution to process a
 - **Preview Model Integration**: Showcases how to use Gemini preview models (which only support the `global` region) with ADK by using a custom wrapper to override the region.
 
 ## How to Run
-Run the `agent.py` file using the ADK runner. Ensure the environment is set up to allow local code execution.
+Run the `agent.py` file using the ADK runner. Ensure the environment variables in the `.env` file (such as `GCS_ARTIFACT_BUCKET` and `AGENT_ENGINE_ID`) are properly configured.

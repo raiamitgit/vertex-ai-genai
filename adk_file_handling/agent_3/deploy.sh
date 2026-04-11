@@ -1,7 +1,6 @@
 #!/bin/bash
 
-# Deployment script for Minimal Summarizer Agent
-# Creates a NEW instance in Agent Engine
+# Deployment script for Agent 3
 
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 ENV_FILE="$SCRIPT_DIR/.env"
@@ -11,17 +10,16 @@ if [ -f "$ENV_FILE" ]; then
   export $(grep -v '^#' "$ENV_FILE" | xargs)
 fi
 
-PROJECT="${GOOGLE_CLOUD_PROJECT:-data-n-models}"
-REGION="${GOOGLE_CLOUD_LOCATION:-us-central1}"
-DISPLAY_NAME="minimal_summarizer_agent"
+PROJECT="${GOOGLE_CLOUD_PROJECT}"
+REGION="${GOOGLE_CLOUD_LOCATION}"
+DISPLAY_NAME="agent_3"
 ADK_BIN="${ADK_BIN:-$SCRIPT_DIR/../.venv/bin/adk}"
 REQUIREMENTS_FILE="$SCRIPT_DIR/requirements.txt"
 
-echo "Deploying Minimal Summarizer to Agent Engine..."
+echo "Deploying Agent 3 to Agent Engine..."
 echo "Project: $PROJECT"
 echo "Region: $REGION"
 
-# Run deployment command targeting summarizer_agent folder
 $ADK_BIN deploy agent_engine \
   --project="$PROJECT" \
   --region="$REGION" \
@@ -31,7 +29,7 @@ $ADK_BIN deploy agent_engine \
   --trace_to_cloud \
   --otel_to_cloud \
   --validate-agent-import \
-  --agent_engine_id="2790552264958279680" "$SCRIPT_DIR"
+  --agent_engine_id="$AGENT_ENGINE_ID" "$SCRIPT_DIR"
 
 EXIT_CODE=$?
 

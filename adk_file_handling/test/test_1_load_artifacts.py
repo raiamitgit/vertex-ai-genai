@@ -108,7 +108,8 @@ async def test_programmatic():
         await session_service.create_session(app_name="minimal_summarizer_agent", user_id=user_id, session_id=session_id)
         
         # Read real PDF file
-        pdf_path = Path('data/vertex search.pdf').resolve()
+        data_folder = os.getenv("DATA_FOLDER_PATH", "data")
+        pdf_path = (Path(data_folder) / "market_conditions.pdf").resolve()
         print(f"Reading PDF from: {pdf_path}")
         with open(pdf_path, "rb") as f:
             pdf_content = f.read()

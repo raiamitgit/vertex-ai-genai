@@ -1,12 +1,18 @@
 import asyncio
 import sys
 import os
+from pathlib import Path
+from dotenv import load_dotenv
 
 # Add parent directory to path to find vertexai if needed
 sys.path.insert(0, os.path.abspath('.'))
 
 import vertexai
 from google.genai import types as genai_types
+
+# Load environment variables from agent_1/.env
+env_path = Path('agent_1').resolve() / '.env'
+load_dotenv(dotenv_path=env_path)
 
 async def test_minimal():
     engine_id = "projects/455386119460/locations/us-central1/reasoningEngines/2790552264958279680"
@@ -16,7 +22,9 @@ async def test_minimal():
     client = vertexai.Client(location="us-central1")
     agent = client.agent_engines.get(name=engine_id)
 
-    pdf_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '../data/vertex search.pdf'))
+    data_folder = os.getenv("DATA_FOLDER_PATH", "data")
+    pdf_path = (Path(data_folder) / "market_conditions.pdf").resolve()
+    print(f"Reading PDF from: {pdf_path}")
     with open(pdf_path, "rb") as f:
         pdf_bytes = f.read()
 

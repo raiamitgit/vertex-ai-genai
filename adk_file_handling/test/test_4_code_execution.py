@@ -6,12 +6,14 @@ from pathlib import Path
 # Add the project root to path so we can import agent_4
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
-# Set environment variables for Vertex AI and ADC
+from dotenv import load_dotenv
+# Load environment variables from agent_4/.env
+env_path = Path('agent_4').resolve() / '.env'
+load_dotenv(dotenv_path=env_path)
+
+# Override for local testing
 os.environ["RUNNING_IN_CLOUD"] = "false"
-os.environ["GCS_ARTIFACT_BUCKET"] = "dummy-bucket"
 os.environ["GOOGLE_GENAI_USE_VERTEXAI"] = "True"
-os.environ["GOOGLE_CLOUD_PROJECT"] = "data-n-models"
-os.environ["GOOGLE_CLOUD_LOCATION"] = "us-central1"
 
 from agent_4.agent import root_agent
 from google.adk.runners import Runner
