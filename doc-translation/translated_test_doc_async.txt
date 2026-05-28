@@ -1,0 +1,7 @@
+HTTP/1.1 500 Internal Server Error
+date: Wed, 18 Feb 2026 12:42:46 GMT
+server: uvicorn
+content-length: 53
+content-type: application/json
+
+{"detail":"400 No result error, PDF may be invalid."}

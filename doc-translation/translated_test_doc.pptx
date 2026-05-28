@@ -1,0 +1,9 @@
+HTTP/1.1 100 Continue
+
+HTTP/1.1 500 Internal Server Error
+date: Wed, 18 Feb 2026 05:36:40 GMT
+server: uvicorn
+content-length: 174
+content-type: application/json
+
+{"detail":"400 Document with mime type: 'application/vnd.openxmlformats-officedocument.presentationml.presentation' and size '39.79MB' exceeds the maximum size of '20.00MB'"}

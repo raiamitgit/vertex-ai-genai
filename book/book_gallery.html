@@ -1,0 +1,613 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Covers Gallery</title>
+    <style>
+        body { font-family: system-ui; background: #f5f5f5; padding: 20px; }
+        .container { max-width: 1400px; margin: 0 auto; }
+        .gallery { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); 
+            gap: 15px; 
+        }
+        .book-card { 
+            background: white; 
+            padding: 8px; 
+            border-radius: 6px; 
+            text-align: center;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .book-cover { 
+            width: 100%; 
+            height: 180px; 
+            object-fit: contain; 
+            background: #eee;
+            margin-bottom: 5px;
+        }
+        .book-title { font-size: 11px; line-height: 1.3; color: #333; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Book Collection</h1>
+        <div id="status">Generating...</div>
+        <div class="gallery" id="gallery">
+
+            <div class="book-card">
+                <img src="file:///Users/raiamit/code/vertex-ai-genai/book/covers/001_I_love_my_teacher_by_Andreae_Giles.jpg" class="book-cover" loading="lazy">
+            </div>
+            
+            <div class="book-card">
+                <img src="file:///Users/raiamit/code/vertex-ai-genai/book/covers/002_Doctor_Ted_by_Beaty_Andrea.jpg" class="book-cover" loading="lazy">
+            </div>
+            
+            <div class="book-card">
+                <img src="file:///Users/raiamit/code/vertex-ai-genai/book/covers/003_Once_upon_an_alphabet_by_Jeffers_Oliver.jpg" class="book-cover" loading="lazy">
+            </div>
+            
+            <div class="book-card">
+                <img src="file:///Users/raiamit/code/vertex-ai-genai/book/covers/004_Hooray_for_fish_by_Cousins_Lucy.jpg" class="book-cover" loading="lazy">
+            </div>
+            
+            <div class="book-card">
+                <img src="file:///Users/raiamit/code/vertex-ai-genai/book/covers/005_See_under_the_sea_by_Davies_Kate.jpg" class="book-cover" loading="lazy">
+            </div>
+            
+            <div class="book-card">
+                <img src="file:///Users/raiamit/code/vertex-ai-genai/book/covers/006_Dog_and_Mouse_by_Nelson-Schmidt_Michelle.jpg" class="book-cover" loading="lazy">
+            </div>
+            
+            <div class="book-card">
+                <img src="file:///Users/raiamit/code/vertex-ai-genai/book/covers/007_Seasons_and_weather_by_Berendes_Mary.jpg" class="book-cover" loading="lazy">
+            </div>
+            
+            <div class="book-card">
+                <img src="file:///Users/raiamit/code/vertex-ai-genai/book/covers/008_The_sun_is_late_and_so_is_the_farmer_by_Stead_Phil.jpg" class="book-cover" loading="lazy">
+            </div>
+            
+            <div class="book-card">
+                <img src="file:///Users/raiamit/code/vertex-ai-genai/book/covers/009_Welcome_home_Bear_by_Na_Il_Sung.jpg" class="book-cover" loading="lazy">
+            </div>
+            
+            <div class="book-card">
+                <img src="file:///Users/raiamit/code/vertex-ai-genai/book/covers/010_Im_Smart_by_McMullan_Kate.jpg" class="book-cover" loading="lazy">
+            </div>
+            
+            <div class="book-card">
+                <img src="file:///Users/raiamit/code/vertex-ai-genai/book/covers/011_Good_night_Boston_by_Gamble_Adam.jpg" class="book-cover" loading="lazy">
+            </div>
+            
+            <div class="book-card">
+                <img src="file:///Users/raiamit/code/vertex-ai-genai/book/covers/012_Toy_story_4_by_Wage_Erin_Rose.jpg" class="book-cover" loading="lazy">
+            </div>
+            
+            <div class="book-card">
+                <img src="file:///Users/raiamit/code/vertex-ai-genai/book/covers/013_Chucks_truck_by_Anderson_Peggy_Perry.jpg" class="book-cover" loading="lazy">
+            </div>
+            
+            <div class="book-card">
+                <img src="file:///Users/raiamit/code/vertex-ai-genai/book/covers/014_What_Is_Inside_This_Box_by_Daywalt_Drew.jpg" class="book-cover" loading="lazy">
+            </div>
+            
+            <div class="book-card">
+                <img src="file:///Users/raiamit/code/vertex-ai-genai/book/covers/015_Kwanzaa_by_Koestler-Grack_Rachel_A.jpg" class="book-cover" loading="lazy">
+            </div>
+            
+            <div class="book-card">
+                <img src="file:///Users/raiamit/code/vertex-ai-genai/book/covers/016_The_littlest_train_by_Gall_Chris.jpg" class="book-cover" loading="lazy">
+            </div>
+            
+            <div class="book-card">
+                <img src="file:///Users/raiamit/code/vertex-ai-genai/book/covers/017_Carlo_and_the_really_nice_librarian_by_Spanyol_Jes.jpg" class="book-cover" loading="lazy">
+            </div>
+            
+            <div class="book-card">
+                <img src="file:///Users/raiamit/code/vertex-ai-genai/book/covers/018_The_missing_chick_by_Gorbachev_Valeri.jpg" class="book-cover" loading="lazy">
+            </div>
+            
+            <div class="book-card">
+                <img src="file:///Users/raiamit/code/vertex-ai-genai/book/covers/019_Our_solar_system_by_Simon_Seymour.jpg" class="book-cover" loading="lazy">
+            </div>
+            
+            <div class="book-card">
+                <img src="file:///Users/raiamit/code/vertex-ai-genai/book/covers/020_Usborne_Lift-the-Flap_Times_tables_by_Dickins_Rosi.jpg" class="book-cover" loading="lazy">
+            </div>
+            
+            <div class="book-card">
+                <img src="file:///Users/raiamit/code/vertex-ai-genai/book/covers/021_Space_travel_by_Stone_Jerry.jpg" class="book-cover" loading="lazy">
+            </div>
+            
+            <div class="book-card">
+                <img src="file:///Users/raiamit/code/vertex-ai-genai/book/covers/022_How_big_were_dinosaurs_by_Judge_Lita.jpg" class="book-cover" loading="lazy">
+            </div>
+            
+            <div class="book-card">
+                <img src="file:///Users/raiamit/code/vertex-ai-genai/book/covers/023_Secrets_of_our_Earth_by_Brown_Carron.jpg" class="book-cover" loading="lazy">
+            </div>
+            
+            <div class="book-card">
+                <img src="file:///Users/raiamit/code/vertex-ai-genai/book/covers/024_Barneys_horse_by_Hoff_Syd.jpg" class="book-cover" loading="lazy">
+            </div>
+            
+            <div class="book-card">
+                <img src="file:///Users/raiamit/code/vertex-ai-genai/book/covers/025_Otter_I_love_books_by_Garton_Sam.jpg" class="book-cover" loading="lazy">
+            </div>
+            
+            <div class="book-card">
+                <img src="file:///Users/raiamit/code/vertex-ai-genai/book/covers/026_My_name_is_Bob_by_Bowen_James.jpg" class="book-cover" loading="lazy">
+            </div>
+            
+            <div class="book-card">
+                <img src="file:///Users/raiamit/code/vertex-ai-genai/book/covers/027_Learning_subtraction_with_puppies_and_kittens_by_M.jpg" class="book-cover" loading="lazy">
+            </div>
+            
+            <div class="book-card">
+                <img src="file:///Users/raiamit/code/vertex-ai-genai/book/covers/028_Being_responsible_by_Pettiford_Rebecca.jpg" class="book-cover" loading="lazy">
+            </div>
+            
+            <div class="book-card">
+                <img src="file:///Users/raiamit/code/vertex-ai-genai/book/covers/029_At_the_Park_by_Baker_Keith.jpg" class="book-cover" loading="lazy">
+            </div>
+            
+            <div class="book-card">
+                <img src="file:///Users/raiamit/code/vertex-ai-genai/book/covers/030_You_Can_Be_a_Doctor_Random_House.jpg" class="book-cover" loading="lazy">
+            </div>
+            
+            <div class="book-card">
+                <img src="file:///Users/raiamit/code/vertex-ai-genai/book/covers/031_Swim_Mo_swim_by_Adler_David.jpg" class="book-cover" loading="lazy">
+            </div>
+            
+            <div class="book-card">
+                <img src="file:///Users/raiamit/code/vertex-ai-genai/book/covers/032_Henry_on_wheels_by_Bourne_B_B.jpg" class="book-cover" loading="lazy">
+            </div>
+            
+            <div class="book-card">
+                <img src="file:///Users/raiamit/code/vertex-ai-genai/book/covers/033_We_tell_the_truth_by_Gordon_Sharon.jpg" class="book-cover" loading="lazy">
+            </div>
+            
+            <div class="book-card">
+                <img src="file:///Users/raiamit/code/vertex-ai-genai/book/covers/034_Pass_the_ball_Mo_by_Adler_David_A.jpg" class="book-cover" loading="lazy">
+            </div>
+            
+            <div class="book-card">
+                <img src="file:///Users/raiamit/code/vertex-ai-genai/book/covers/035_Hop_on_Pop_by_Seuss_Dr.jpg" class="book-cover" loading="lazy">
+            </div>
+            
+            <div class="book-card">
+                <img src="file:///Users/raiamit/code/vertex-ai-genai/book/covers/036_Game_on_by_Foxe_Steve.jpg" class="book-cover" loading="lazy">
+            </div>
+            
+            <div class="book-card">
+                <img src="file:///Users/raiamit/code/vertex-ai-genai/book/covers/037_Moon_by_Bauer_Marion_Dane.jpg" class="book-cover" loading="lazy">
+            </div>
+            
+            <div class="book-card">
+                <img src="file:///Users/raiamit/code/vertex-ai-genai/book/covers/038_Pizza_for_Pia_by_Groban_Betsy.jpg" class="book-cover" loading="lazy">
+            </div>
+            
+            <div class="book-card">
+                <img src="file:///Users/raiamit/code/vertex-ai-genai/book/covers/039_You_are_a_unicorn_by_Showers_April.jpg" class="book-cover" loading="lazy">
+            </div>
+            
+            <div class="book-card">
+                <img src="file:///Users/raiamit/code/vertex-ai-genai/book/covers/040_Need_it_or_want_it_by_Brown_Tammy.jpg" class="book-cover" loading="lazy">
+            </div>
+            
+            <div class="book-card">
+                <img src="file:///Users/raiamit/code/vertex-ai-genai/book/covers/041_Flowers_by_Bone_Emily.jpg" class="book-cover" loading="lazy">
+            </div>
+            
+            <div class="book-card">
+                <img src="file:///Users/raiamit/code/vertex-ai-genai/book/covers/042_Little_Red_Riding_Hood_by_Davidson_Susanna.jpg" class="book-cover" loading="lazy">
+            </div>
+            
+            <div class="book-card">
+                <img src="file:///Users/raiamit/code/vertex-ai-genai/book/covers/043_Andy__Sandys_anything_adventure_by_DePaola_Tomie.jpg" class="book-cover" loading="lazy">
+            </div>
+            
+            <div class="book-card">
+                <img src="file:///Users/raiamit/code/vertex-ai-genai/book/covers/044_Me_too_by_Gorbachev_Valeri.jpg" class="book-cover" loading="lazy">
+            </div>
+            
+            <div class="book-card">
+                <img src="file:///Users/raiamit/code/vertex-ai-genai/book/covers/045_My_toothbrush_is_missing_by_Thomas_Jan.jpg" class="book-cover" loading="lazy">
+            </div>
+            
+            <div class="book-card">
+                <img src="file:///Users/raiamit/code/vertex-ai-genai/book/covers/046_That_egg_is_mine_by_Dubois_Liz_Goulet.jpg" class="book-cover" loading="lazy">
+            </div>
+            
+            <div class="book-card">
+                <img src="file:///Users/raiamit/code/vertex-ai-genai/book/covers/047_Goose_and_Duck_by_George_Jean_Craighead.jpg" class="book-cover" loading="lazy">
+            </div>
+            
+            <div class="book-card">
+                <img src="file:///Users/raiamit/code/vertex-ai-genai/book/covers/048_Gus_and_Grandpa_and_the_two-wheeled_bike_by_Mills_.jpg" class="book-cover" loading="lazy">
+            </div>
+            
+            <div class="book-card">
+                <img src="file:///Users/raiamit/code/vertex-ai-genai/book/covers/049_Henry_and_Mudge_and_the_great_grandpas_by_Rylant_C.jpg" class="book-cover" loading="lazy">
+            </div>
+            
+            <div class="book-card">
+                <img src="file:///Users/raiamit/code/vertex-ai-genai/book/covers/050_Theres_math_in_my_art_by_Bethea_Nikole_Brooks.jpg" class="book-cover" loading="lazy">
+            </div>
+            
+            <div class="book-card">
+                <div class="book-cover" style="display:flex;align-items:center;justify-content:center;color:#999">No Image</div>
+            </div>
+            
+            <div class="book-card">
+                <img src="file:///Users/raiamit/code/vertex-ai-genai/book/covers/052_Danny_and_the_dinosaur_go_to_camp_by_Hoff_Syd.jpg" class="book-cover" loading="lazy">
+            </div>
+            
+            <div class="book-card">
+                <img src="file:///Users/raiamit/code/vertex-ai-genai/book/covers/053_Dixie_and_the_best_day_ever_by_Gilman_Grace.jpg" class="book-cover" loading="lazy">
+            </div>
+            
+            <div class="book-card">
+                <img src="file:///Users/raiamit/code/vertex-ai-genai/book/covers/054_Huff_and_Puff_have_too_much_stuff_by_Rabe_Tish.jpg" class="book-cover" loading="lazy">
+            </div>
+            
+            <div class="book-card">
+                <img src="file:///Users/raiamit/code/vertex-ai-genai/book/covers/055_Rabbits_rabbits__more_rabbits_by_Gibbons_Gail.jpg" class="book-cover" loading="lazy">
+            </div>
+            
+            <div class="book-card">
+                <img src="file:///Users/raiamit/code/vertex-ai-genai/book/covers/056_When_spring_comes_by_Henkes_Kevin.jpg" class="book-cover" loading="lazy">
+            </div>
+            
+            <div class="book-card">
+                <img src="file:///Users/raiamit/code/vertex-ai-genai/book/covers/057_I_lava_you_by_Wan_Liv.jpg" class="book-cover" loading="lazy">
+            </div>
+            
+            <div class="book-card">
+                <img src="file:///Users/raiamit/code/vertex-ai-genai/book/covers/058_Murilla_Gorilla_and_the_Lost_Parasol_by_Lloyd_Jenn.jpg" class="book-cover" loading="lazy">
+            </div>
+            
+            <div class="book-card">
+                <img src="file:///Users/raiamit/code/vertex-ai-genai/book/covers/059_Libby_loves_science__states_of_matter_by_Derting_K.jpg" class="book-cover" loading="lazy">
+            </div>
+            
+            <div class="book-card">
+                <img src="file:///Users/raiamit/code/vertex-ai-genai/book/covers/060_Flat_Stanley_on_ice_by_Houran_Lori_Haskins.jpg" class="book-cover" loading="lazy">
+            </div>
+            
+            <div class="book-card">
+                <img src="file:///Users/raiamit/code/vertex-ai-genai/book/covers/061_Sabrina_Sue_loves_the_moon_by_Burris_Priscilla.jpg" class="book-cover" loading="lazy">
+            </div>
+            
+            <div class="book-card">
+                <img src="file:///Users/raiamit/code/vertex-ai-genai/book/covers/062_Monkey_and_Elephant_by_Schaefer_Carole_Lexa.jpg" class="book-cover" loading="lazy">
+            </div>
+            
+            <div class="book-card">
+                <img src="file:///Users/raiamit/code/vertex-ai-genai/book/covers/063_Seeds_by_Glaser_Rebecca_Stromstad.jpg" class="book-cover" loading="lazy">
+            </div>
+            
+            <div class="book-card">
+                <img src="file:///Users/raiamit/code/vertex-ai-genai/book/covers/064_The_lost_mitten_by_Ho_Jannie.jpg" class="book-cover" loading="lazy">
+            </div>
+            
+            <div class="book-card">
+                <img src="file:///Users/raiamit/code/vertex-ai-genai/book/covers/065_Nat_the_cat_takes_a_bath_by_Lerner_Jarrett.jpg" class="book-cover" loading="lazy">
+            </div>
+            
+            <div class="book-card">
+                <img src="file:///Users/raiamit/code/vertex-ai-genai/book/covers/066_The_good_sport_by_Awdry_W.jpg" class="book-cover" loading="lazy">
+            </div>
+            
+            <div class="book-card">
+                <img src="file:///Users/raiamit/code/vertex-ai-genai/book/covers/067_Silly_Milly_and_the_mysterious_suitcase_by_Lewison.jpg" class="book-cover" loading="lazy">
+            </div>
+            
+            <div class="book-card">
+                <img src="file:///Users/raiamit/code/vertex-ai-genai/book/covers/068_Sheep_go_to_sleep_by_Shaw_Nancy.jpg" class="book-cover" loading="lazy">
+            </div>
+            
+            <div class="book-card">
+                <img src="file:///Users/raiamit/code/vertex-ai-genai/book/covers/069_Counting_our_blessings_by_Dodd_Emma.jpg" class="book-cover" loading="lazy">
+            </div>
+            
+            <div class="book-card">
+                <img src="file:///Users/raiamit/code/vertex-ai-genai/book/covers/070_Bunny_days_by_Nyeu_Tao.jpg" class="book-cover" loading="lazy">
+            </div>
+            
+            <div class="book-card">
+                <img src="file:///Users/raiamit/code/vertex-ai-genai/book/covers/071_When_I_care_about_others_by_Spelman_Cornelia.jpg" class="book-cover" loading="lazy">
+            </div>
+            
+            <div class="book-card">
+                <img src="file:///Users/raiamit/code/vertex-ai-genai/book/covers/072_What_living_things_need_World_Book_Inc.jpg" class="book-cover" loading="lazy">
+            </div>
+            
+            <div class="book-card">
+                <img src="file:///Users/raiamit/code/vertex-ai-genai/book/covers/073_Kick_it_Mo_by_Adler_David_A.jpg" class="book-cover" loading="lazy">
+            </div>
+            
+            <div class="book-card">
+                <img src="file:///Users/raiamit/code/vertex-ai-genai/book/covers/074_Train_ride_fun_by_Testa_Maggie.jpg" class="book-cover" loading="lazy">
+            </div>
+            
+            <div class="book-card">
+                <img src="file:///Users/raiamit/code/vertex-ai-genai/book/covers/075_Paddington_sets_sail_by_Bond_Michael.jpg" class="book-cover" loading="lazy">
+            </div>
+            
+            <div class="book-card">
+                <img src="file:///Users/raiamit/code/vertex-ai-genai/book/covers/076_Independence_Day_by_Manley_Erika_S.jpg" class="book-cover" loading="lazy">
+            </div>
+            
+            <div class="book-card">
+                <img src="file:///Users/raiamit/code/vertex-ai-genai/book/covers/077_Three_little_kittens_by_Galdone_Paul.jpg" class="book-cover" loading="lazy">
+            </div>
+            
+            <div class="book-card">
+                <img src="file:///Users/raiamit/code/vertex-ai-genai/book/covers/078_When_dinosaurs_came_with_everything_by_Broach_Elis.jpg" class="book-cover" loading="lazy">
+            </div>
+            
+            <div class="book-card">
+                <img src="file:///Users/raiamit/code/vertex-ai-genai/book/covers/079_Get_a_hit_Mo_by_Adler_David_A.jpg" class="book-cover" loading="lazy">
+            </div>
+            
+            <div class="book-card">
+                <img src="file:///Users/raiamit/code/vertex-ai-genai/book/covers/080_Gus_makes_a_gift_by_Remkiewicz_Frank.jpg" class="book-cover" loading="lazy">
+            </div>
+            
+            <div class="book-card">
+                <img src="file:///Users/raiamit/code/vertex-ai-genai/book/covers/081_Thomas_and_the_Rocket_by_Johnson_Nicole.jpg" class="book-cover" loading="lazy">
+            </div>
+            
+            <div class="book-card">
+                <img src="file:///Users/raiamit/code/vertex-ai-genai/book/covers/082_The_Duck_Is_Stuck_by_Regan_Dana.jpg" class="book-cover" loading="lazy">
+            </div>
+            
+            <div class="book-card">
+                <img src="file:///Users/raiamit/code/vertex-ai-genai/book/covers/083_The_garden_that_we_grew_by_Holub_Joan.jpg" class="book-cover" loading="lazy">
+            </div>
+            
+            <div class="book-card">
+                <img src="file:///Users/raiamit/code/vertex-ai-genai/book/covers/084_Bumblebees_big_mission_by_Michaels_Patty.jpg" class="book-cover" loading="lazy">
+            </div>
+            
+            <div class="book-card">
+                <img src="file:///Users/raiamit/code/vertex-ai-genai/book/covers/085_Rocket_Has_a_Sleepover_by_Hills_Tad.jpg" class="book-cover" loading="lazy">
+            </div>
+            
+            <div class="book-card">
+                <img src="file:///Users/raiamit/code/vertex-ai-genai/book/covers/086_Tell_someone_by_Shumaker_Debra_Kempf.jpg" class="book-cover" loading="lazy">
+            </div>
+            
+            <div class="book-card">
+                <img src="file:///Users/raiamit/code/vertex-ai-genai/book/covers/087_A_big_boy_now_by_Spinelli_Eileen.jpg" class="book-cover" loading="lazy">
+            </div>
+            
+            <div class="book-card">
+                <img src="file:///Users/raiamit/code/vertex-ai-genai/book/covers/088_Do_you_have_a_cat_by_Spinelli_Eileen.jpg" class="book-cover" loading="lazy">
+            </div>
+            
+            <div class="book-card">
+                <img src="file:///Users/raiamit/code/vertex-ai-genai/book/covers/089_Summer_is_for_cousins_by_LaRocca_Rajani.jpg" class="book-cover" loading="lazy">
+            </div>
+            
+            <div class="book-card">
+                <img src="file:///Users/raiamit/code/vertex-ai-genai/book/covers/090_Scurry_and_squeak_by_Doering_Amanda_F.jpg" class="book-cover" loading="lazy">
+            </div>
+            
+            <div class="book-card">
+                <img src="file:///Users/raiamit/code/vertex-ai-genai/book/covers/091_Natures_patterns_World_Book_Inc.jpg" class="book-cover" loading="lazy">
+            </div>
+            
+            <div class="book-card">
+                <img src="file:///Users/raiamit/code/vertex-ai-genai/book/covers/092_Me_by_Oldham_Matthew.jpg" class="book-cover" loading="lazy">
+            </div>
+            
+            <div class="book-card">
+                <img src="file:///Users/raiamit/code/vertex-ai-genai/book/covers/093_Pips_trip_by_Stoeke_Janet_Morgan.jpg" class="book-cover" loading="lazy">
+            </div>
+            
+            <div class="book-card">
+                <img src="file:///Users/raiamit/code/vertex-ai-genai/book/covers/094_Otter_loves_Halloween_by_Garton_Sam.jpg" class="book-cover" loading="lazy">
+            </div>
+            
+            <div class="book-card">
+                <img src="file:///Users/raiamit/code/vertex-ai-genai/book/covers/095_The_new_puppy_by_Kertell_Lynn_Maslen.jpg" class="book-cover" loading="lazy">
+            </div>
+            
+            <div class="book-card">
+                <img src="file:///Users/raiamit/code/vertex-ai-genai/book/covers/096_Miss_Foxs_class_goes_green_by_Spinelli_Eileen.jpg" class="book-cover" loading="lazy">
+            </div>
+            
+            <div class="book-card">
+                <img src="file:///Users/raiamit/code/vertex-ai-genai/book/covers/097_The_pizza_that_we_made_by_Holub_Joan.jpg" class="book-cover" loading="lazy">
+            </div>
+            
+            <div class="book-card">
+                <img src="file:///Users/raiamit/code/vertex-ai-genai/book/covers/098_Ill_be_there_by_Stott_Ann.jpg" class="book-cover" loading="lazy">
+            </div>
+            
+            <div class="book-card">
+                <img src="file:///Users/raiamit/code/vertex-ai-genai/book/covers/099_Thomas_and_the_volcano_by_Awdry_W.jpg" class="book-cover" loading="lazy">
+            </div>
+            
+            <div class="book-card">
+                <img src="file:///Users/raiamit/code/vertex-ai-genai/book/covers/100_Build_Dogs_Build_by_Horvath_James.jpg" class="book-cover" loading="lazy">
+            </div>
+            
+            <div class="book-card">
+                <img src="file:///Users/raiamit/code/vertex-ai-genai/book/covers/101_Lets_fly_by_Hunt_Matt.jpg" class="book-cover" loading="lazy">
+            </div>
+            
+            <div class="book-card">
+                <img src="file:///Users/raiamit/code/vertex-ai-genai/book/covers/102_Alex_and_Lulu_by_Siminovich_Lorena.jpg" class="book-cover" loading="lazy">
+            </div>
+            
+            <div class="book-card">
+                <img src="file:///Users/raiamit/code/vertex-ai-genai/book/covers/103_Clifford_the_Big_Red_Dog_by_Bridwell_Norman.jpg" class="book-cover" loading="lazy">
+            </div>
+            
+            <div class="book-card">
+                <img src="file:///Users/raiamit/code/vertex-ai-genai/book/covers/104_Guess_what_by_Willems_Mo.jpg" class="book-cover" loading="lazy">
+            </div>
+            
+            <div class="book-card">
+                <img src="file:///Users/raiamit/code/vertex-ai-genai/book/covers/105_I_want_to_sleep_under_the_stars_by_Willems_Mo.jpg" class="book-cover" loading="lazy">
+            </div>
+            
+            <div class="book-card">
+                <img src="file:///Users/raiamit/code/vertex-ai-genai/book/covers/106_Megatron_is_put_to_the_test_by_Cruz_Gloria.jpg" class="book-cover" loading="lazy">
+            </div>
+            
+            <div class="book-card">
+                <img src="file:///Users/raiamit/code/vertex-ai-genai/book/covers/107_I_will_take_a_nap_by_Willems_Mo.jpg" class="book-cover" loading="lazy">
+            </div>
+            
+            <div class="book-card">
+                <img src="file:///Users/raiamit/code/vertex-ai-genai/book/covers/108_Pete_the_Kitty_and_the_three_bears_by_Dean_Kim.jpg" class="book-cover" loading="lazy">
+            </div>
+            
+            <div class="book-card">
+                <img src="file:///Users/raiamit/code/vertex-ai-genai/book/covers/109_Sir_Pete_the_Brave_by_Dean_James.jpg" class="book-cover" loading="lazy">
+            </div>
+            
+            <div class="book-card">
+                <img src="file:///Users/raiamit/code/vertex-ai-genai/book/covers/110_Fancy_Nancy_and_the_too-loose_tooth_by_OConnor_Jan.jpg" class="book-cover" loading="lazy">
+            </div>
+            
+            <div class="book-card">
+                <img src="file:///Users/raiamit/code/vertex-ai-genai/book/covers/111_Cats_very_good_day_by_Tracy_Kristen.jpg" class="book-cover" loading="lazy">
+            </div>
+            
+            <div class="book-card">
+                <img src="file:///Users/raiamit/code/vertex-ai-genai/book/covers/112_Ari_arranges_everything_by_Vernon_Katie.jpg" class="book-cover" loading="lazy">
+            </div>
+            
+            <div class="book-card">
+                <img src="file:///Users/raiamit/code/vertex-ai-genai/book/covers/113_Red_light_green_light_by_Suen_Anastasia.jpg" class="book-cover" loading="lazy">
+            </div>
+            
+            <div class="book-card">
+                <img src="file:///Users/raiamit/code/vertex-ai-genai/book/covers/114_Nat_the_Cat_has_a_snack_by_Lerner_Jarrett.jpg" class="book-cover" loading="lazy">
+            </div>
+            
+            <div class="book-card">
+                <img src="file:///Users/raiamit/code/vertex-ai-genai/book/covers/115_Dig_dogs_dig_by_Horvath_James.jpg" class="book-cover" loading="lazy">
+            </div>
+            
+            <div class="book-card">
+                <img src="file:///Users/raiamit/code/vertex-ai-genai/book/covers/116_LEGO_City_awesome_tales_by_Foxe_Steve.jpg" class="book-cover" loading="lazy">
+            </div>
+            
+            <div class="book-card">
+                <img src="file:///Users/raiamit/code/vertex-ai-genai/book/covers/117_Diwali_by_Eliot_Hannah.jpg" class="book-cover" loading="lazy">
+            </div>
+            
+            <div class="book-card">
+                <img src="file:///Users/raiamit/code/vertex-ai-genai/book/covers/118_Light_by_Forman_Ruth.jpg" class="book-cover" loading="lazy">
+            </div>
+            
+            <div class="book-card">
+                <img src="file:///Users/raiamit/code/vertex-ai-genai/book/covers/119_Vet_by_Green_Dan.jpg" class="book-cover" loading="lazy">
+            </div>
+            
+            <div class="book-card">
+                <img src="file:///Users/raiamit/code/vertex-ai-genai/book/covers/120_Arthurs_birthday_party_by_Hoban_Lillian.jpg" class="book-cover" loading="lazy">
+            </div>
+            
+            <div class="book-card">
+                <img src="file:///Users/raiamit/code/vertex-ai-genai/book/covers/121_Reina_Ramos__tour_guide_by_Otheguy_Emma.jpg" class="book-cover" loading="lazy">
+            </div>
+            
+            <div class="book-card">
+                <img src="file:///Users/raiamit/code/vertex-ai-genai/book/covers/122_On_the_moon_by_Milbourne_Anna.jpg" class="book-cover" loading="lazy">
+            </div>
+            
+            <div class="book-card">
+                <img src="file:///Users/raiamit/code/vertex-ai-genai/book/covers/123_Hickory_dickory_dock_by_Punter_Russell.jpg" class="book-cover" loading="lazy">
+            </div>
+            
+            <div class="book-card">
+                <img src="file:///Users/raiamit/code/vertex-ai-genai/book/covers/124_Submarines_and_submersibles_by_Lock_Deborah.jpg" class="book-cover" loading="lazy">
+            </div>
+            
+            <div class="book-card">
+                <img src="file:///Users/raiamit/code/vertex-ai-genai/book/covers/125_Otter_What_Pet_Is_Best_by_Garton_Sam.jpg" class="book-cover" loading="lazy">
+            </div>
+            
+            <div class="book-card">
+                <img src="file:///Users/raiamit/code/vertex-ai-genai/book/covers/126_Marvins_best_Christmas_present_ever_by_Paterson_Ka.jpg" class="book-cover" loading="lazy">
+            </div>
+            
+            <div class="book-card">
+                <img src="file:///Users/raiamit/code/vertex-ai-genai/book/covers/127_Frog_and_toad_all_year_by_Lobel_Arnold.jpg" class="book-cover" loading="lazy">
+            </div>
+            
+            <div class="book-card">
+                <img src="file:///Users/raiamit/code/vertex-ai-genai/book/covers/128_Fergus_and_Zeke_and_the_100th_Day_of_School_by_Mes.jpg" class="book-cover" loading="lazy">
+            </div>
+            
+            <div class="book-card">
+                <img src="file:///Users/raiamit/code/vertex-ai-genai/book/covers/129_Elvis_and_Romeo_go_to_dog_school_by_Soman_David.jpg" class="book-cover" loading="lazy">
+            </div>
+            
+            <div class="book-card">
+                <img src="file:///Users/raiamit/code/vertex-ai-genai/book/covers/130_Our_apple_tree_by_Näslund_Görel_Kristina.jpg" class="book-cover" loading="lazy">
+            </div>
+            
+            <div class="book-card">
+                <img src="file:///Users/raiamit/code/vertex-ai-genai/book/covers/131_A_baby_sister_for_Frances_by_Hoban_Russell.jpg" class="book-cover" loading="lazy">
+            </div>
+            
+            <div class="book-card">
+                <img src="file:///Users/raiamit/code/vertex-ai-genai/book/covers/132_Nick_and_Nack_Blow_Bubbles_by_Budzi_Brandon.jpg" class="book-cover" loading="lazy">
+            </div>
+            
+            <div class="book-card">
+                <img src="file:///Users/raiamit/code/vertex-ai-genai/book/covers/133_Mama_Seetons_whistle_by_Spinelli_Jerry.jpg" class="book-cover" loading="lazy">
+            </div>
+            
+            <div class="book-card">
+                <img src="file:///Users/raiamit/code/vertex-ai-genai/book/covers/134_Pete_the_Cats_Family_Road_Trip_by_Dean_James.jpg" class="book-cover" loading="lazy">
+            </div>
+            
+            <div class="book-card">
+                <img src="file:///Users/raiamit/code/vertex-ai-genai/book/covers/135_The_Big_Mix-Up_by_Regan_Dana.jpg" class="book-cover" loading="lazy">
+            </div>
+            
+            <div class="book-card">
+                <img src="file:///Users/raiamit/code/vertex-ai-genai/book/covers/136_Pajama_Day_by_OConnor_Jane.jpg" class="book-cover" loading="lazy">
+            </div>
+            
+            <div class="book-card">
+                <img src="file:///Users/raiamit/code/vertex-ai-genai/book/covers/137_The_dazzling_book_report_by_OConnor_Jane.jpg" class="book-cover" loading="lazy">
+            </div>
+            
+            <div class="book-card">
+                <img src="file:///Users/raiamit/code/vertex-ai-genai/book/covers/138_The_100th_day_of_school_by_OConnor_Jane.jpg" class="book-cover" loading="lazy">
+            </div>
+            
+            <div class="book-card">
+                <img src="file:///Users/raiamit/code/vertex-ai-genai/book/covers/139_Bundle_up_little_pup_by_Elys_Dori.jpg" class="book-cover" loading="lazy">
+            </div>
+            
+            <div class="book-card">
+                <img src="file:///Users/raiamit/code/vertex-ai-genai/book/covers/140_Sammy_the_seal_by_Hoff_Syd.jpg" class="book-cover" loading="lazy">
+            </div>
+            
+            <div class="book-card">
+                <img src="file:///Users/raiamit/code/vertex-ai-genai/book/covers/141_Every_day_is_Earth_Day_by_OConnor_Jane.jpg" class="book-cover" loading="lazy">
+            </div>
+            
+            <div class="book-card">
+                <img src="file:///Users/raiamit/code/vertex-ai-genai/book/covers/142_Mirabels_discovery_by_Weber_Vicky.jpg" class="book-cover" loading="lazy">
+            </div>
+            
+        </div>
+    </div>
+    <script>
+        document.getElementById('status').innerText = "Gallery Generation Complete";
+    </script>
+</body>
+</html>

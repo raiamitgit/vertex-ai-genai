@@ -1,0 +1,26 @@
+# Environments
+.env
+
+# AG skills
+.agent/*
+
+# Local adk logs
+*/.adk/*
+adk_web_log.txt
+adk_web_log*.txt
+
+# Local VSCode settings
+.vscode/*
+agent.md
+
+# Others
+*/__pycache__/
+.DS_Store
+
+# Logs
+server.log
+*.log
+
+# Virtual Environment
+venv/
+env/

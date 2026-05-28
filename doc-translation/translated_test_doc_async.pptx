@@ -1,0 +1,9 @@
+HTTP/1.1 100 Continue
+
+HTTP/1.1 500 Internal Server Error
+date: Wed, 18 Feb 2026 12:43:38 GMT
+server: uvicorn
+content-length: 134
+content-type: application/json
+
+{"detail":"Batch Translation operation failed or timed out: Operation did not complete within the designated timeout of 600 seconds."}
