@@ -54,7 +54,6 @@ def list_incidents(limit: int = 5) -> str:
 def query_incident(ticket_id: str) -> str:
     """Query details for a specific ServiceNow incident by its ticket ID (e.g. INC0010019).
 
-
     Use this tool when the user asks about a specific ticket's status, priority,
     urgency, creation date, caller, or full description.
 
@@ -221,3 +220,92 @@ def update_ticket_fields(
     except Exception as e:
         logger.error(f"Error in update_ticket_fields tool for {ticket_id}: {e}")
         return f"Error updating incident '{ticket_id}': {str(e)}"
+
+
+# ==============================================================================
+# Knowledge Base (kb_knowledge) Tool Definitions
+# ==============================================================================
+
+@mcp.tool()
+def search_knowledge_base(query: str, limit: int = 5) -> str:
+    """Search the ServiceNow Knowledge Base (kb_knowledge) for articles matching a search query.
+
+    Use this tool when the user asks to search for documentation, look up a guide,
+    find how-to instructions, or search for help articles related to a topic.
+
+    Args:
+        query: The search term or keywords to find (e.g., 'VPN connection setup').
+        limit: The maximum number of results to return (default: 5).
+
+    Returns:
+        A formatted Markdown list of matching articles.
+    """
+    try:
+        articles = servicenow_client.search_knowledge_base(query, limit=limit)
+        if not articles:
+            return f"No knowledge articles found matching: '{query}'."
+
+        output = f"### Knowledge Base Search Results for '{query}':\n\n"
+        for art in articles:
+            output += f"* **{art.get('number')}**: {art.get('short_description')}\n"
+            output += f"  - *Author*: {art.get('author', {}).get('display_value') if isinstance(art.get('author'), dict) else art.get('author')} | *Created*: {art.get('sys_created_on')}\n"
+        return output
+    except Exception as e:
+        logger.error(f"Error in search_knowledge_base tool for '{query}': {e}")
+        return f"Error searching knowledge base: {str(e)}"
+
+
+@mcp.tool()
+def get_knowledge_article(article_id: str) -> str:
+    """Retrieve the complete body text and content of a specific ServiceNow Knowledge Article by its ID (e.g., KB0010012).
+
+    Use this tool when the user asks to read a specific article, view a complete guide,
+    or needs the full text/content of a documentation page.
+
+    Args:
+        article_id: The article number (e.g., 'KB0010012') or sys_id.
+
+    Returns:
+        A detailed Markdown report containing the article text.
+    """
+    try:
+        details = servicenow_client.get_knowledge_article(article_id)
+        
+        output = f"### Knowledge Article: {details.get('number')}\n\n"
+        output += f"## **Title**: {details.get('short_description')}\n\n"
+        output += f"{details.get('text')}\n\n"
+        output += f"---\n"
+        output += f"* **Article ID**: `{details.get('sys_id')}`\n"
+        author = details.get("author")
+        if isinstance(author, dict):
+            output += f"* **Author**: {author.get('display_value')} (`{author.get('value')}`)\n"
+        elif author:
+            output += f"* **Author ID**: `{author}`\n"
+        output += f"* **Published**: {details.get('sys_created_on')}\n"
+        return output
+    except Exception as e:
+        logger.error(f"Error in get_knowledge_article tool for {article_id}: {e}")
+        return f"Error retrieving knowledge article '{article_id}': {str(e)}"
+
+
+@mcp.tool()
+def create_knowledge_article(title: str, text: str, kb_base_sys_id: Optional[str] = None) -> str:
+    """Create a new ServiceNow Knowledge Article in Draft state.
+
+    Use this tool when the user requests to write a new documentation page,
+    publish a new guide, create a how-to article, or document a process.
+
+    Args:
+        title: The short description or title of the article.
+        text: The HTML/text body content of the article.
+        kb_base_sys_id: The sys_id of the parent Knowledge Base (optional).
+
+    Returns:
+        A Markdown success message.
+    """
+    try:
+        result = servicenow_client.create_knowledge_article(title, text, kb_base_sys_id)
+        return f"### Knowledge Article Created Successfully\n\nCreated Draft Article **{result.get('number')}**."
+    except Exception as e:
+        logger.error(f"Error in create_knowledge_article tool: {e}")
+        return f"Error creating knowledge article: {str(e)}"

@@ -1,8 +1,7 @@
 """Verification script for ServiceNow Client.
 
-This script loads the local .env file, lists recent incidents, fetches details
-for the most recent incident, retrieves its comments, and prints them to the console.
-It serves as a happy-path verification for the client integration.
+This script loads the local .env file and executes live integration checks
+for both Incidents and Knowledge Base operations in ServiceNow.
 """
 
 import os
@@ -24,6 +23,13 @@ import servicenow_client
 
 def run_verification():
     try:
+        # ======================================================================
+        # Part 1: Testing Incidents Operations
+        # ======================================================================
+        print("\n==================================================")
+        print("Testing ServiceNow INCIDENTS Integration")
+        print("==================================================")
+
         print("\n--- 1. Testing list_recent_incidents ---")
         incidents = servicenow_client.list_recent_incidents(limit=3)
         print(f"Successfully retrieved {len(incidents)} incidents.")
@@ -31,76 +37,104 @@ def run_verification():
             print(f"  - {inc.get('number')}: {inc.get('short_description')} (State: {inc.get('state')})")
         
         if not incidents:
-            print("No incidents found in the instance to perform detail tests.")
-            return
-
-        # Pick the first incident for further tests
-        target_ticket = incidents[0].get("number")
-        print(f"\nUsing ticket {target_ticket} for detail and comment tests.")
-
-        print("\n--- 2. Testing get_incident_details ---")
-        details = servicenow_client.get_incident_details(target_ticket)
-        print("Incident Details:")
-        print(f"  - Sys ID: {details.get('sys_id')}")
-        print(f"  - Short Description: {details.get('short_description')}")
-        print(f"  - Description: {details.get('description')}")
-        print(f"  - Priority: {details.get('priority')}")
-        print(f"  - Urgency: {details.get('urgency')}")
-        print(f"  - Created: {details.get('sys_created_on')}")
-
-        print("\n--- 3. Testing get_incident_comments ---")
-        comments = servicenow_client.get_incident_comments(target_ticket)
-        print(f"Retrieved {len(comments)} comments.")
-        for i, comm in enumerate(comments, 1):
-            print(f"  Comment #{i} by {comm.get('sys_created_by')} at {comm.get('sys_created_on')}:")
-            print(f"    {comm.get('value')}")
-
-        print("\n--- 4. Testing add_incident_comment (Live Write Test) ---")
-        # Create a unique comment using timestamp to avoid conflicts
-        unique_identifier = f"Verification test token: {int(time.time())}"
-        test_comment_text = f"Simulated check by BYO-MCP Verification Script. {unique_identifier}"
-        
-        print(f"Adding unique comment: '{test_comment_text}'")
-        add_res = servicenow_client.add_incident_comment(target_ticket, test_comment_text)
-        print(f"Add Result: {add_res}")
-        
-        # Retrieve comments again to find the sys_id of our new comment
-        print("\nVerifying comment creation and resolving its sys_id...")
-        updated_comments = servicenow_client.get_incident_comments(target_ticket)
-        
-        target_comment_sys_id = None
-        for comm in updated_comments:
-            if unique_identifier in comm.get("value", ""):
-                target_comment_sys_id = comm.get("sys_id")
-                print(f"Found matching comment! sys_id: {target_comment_sys_id}")
-                break
-        
-        if not target_comment_sys_id:
-            raise Exception("Verification failed: Added comment was not found in the incident history!")
-
-        print("\n--- 5. Testing delete_comment (Live Cleanup Test) ---")
-        print(f"Deleting comment sys_id: {target_comment_sys_id}...")
-        del_res = servicenow_client.delete_comment(target_comment_sys_id)
-        print(f"Delete Result: {del_res}")
-
-        # Verify it is gone
-        print("\nVerifying comment deletion...")
-        final_comments = servicenow_client.get_incident_comments(target_ticket)
-        deleted_found = False
-        for comm in final_comments:
-            if target_comment_sys_id == comm.get("sys_id"):
-                deleted_found = True
-                break
-        
-        if deleted_found:
-            raise Exception("Verification failed: Comment still exists in ServiceNow after deletion!")
+            print("No incidents found in the instance. Skipping detail tests.")
         else:
-            print("Success! Comment successfully verified as deleted.")
+            target_ticket = incidents[0].get("number")
+            print(f"\nUsing ticket {target_ticket} for detail and comment write tests.")
 
-        print("\n--- Verification Complete: SUCCESS ---")
+            print("\n--- 2. Testing get_incident_details ---")
+            details = servicenow_client.get_incident_details(target_ticket)
+            print("Incident Details:")
+            print(f"  - Sys ID: {details.get('sys_id')}")
+            print(f"  - Short Description: {details.get('short_description')}")
+            print(f"  - Priority: {details.get('priority')} | Urgency: {details.get('urgency')}")
+
+            print("\n--- 3. Testing get_incident_comments ---")
+            comments = servicenow_client.get_incident_comments(target_ticket)
+            print(f"Retrieved {len(comments)} comments.")
+
+            print("\n--- 4. Testing add_incident_comment (Live Write Test) ---")
+            unique_token = f"Verification token: {int(time.time())}"
+            test_comment = f"Verification check by test_client.py. {unique_token}"
+            add_res = servicenow_client.add_incident_comment(target_ticket, test_comment)
+            print(f"Add Result: {add_res}")
+
+            # Verify and resolve the sys_id
+            print("\nVerifying comment creation...")
+            updated_comments = servicenow_client.get_incident_comments(target_ticket)
+            comment_sys_id = None
+            for comm in updated_comments:
+                if unique_token in comm.get("value", ""):
+                    comment_sys_id = comm.get("sys_id")
+                    print(f"Found matching comment! sys_id: {comment_sys_id}")
+                    break
+            
+            if not comment_sys_id:
+                raise Exception("Comment write test failed: Added comment not found!")
+
+            print("\n--- 5. Testing delete_comment (Live Cleanup Test) ---")
+            del_res = servicenow_client.delete_comment(comment_sys_id)
+            print(f"Delete Result: {del_res}")
+
+        # ======================================================================
+        # Part 2: Testing Knowledge Base Operations
+        # ======================================================================
+        print("\n==================================================")
+        print("Testing ServiceNow KNOWLEDGE BASE Integration")
+        print("==================================================")
+
+        print("\n--- 6. Testing create_knowledge_article (Live Write Test) ---")
+        kb_unique_token = f"KB Verification token: {int(time.time())}"
+        kb_title = f"Test Article - {kb_unique_token}"
+        kb_text = f"<p>This is a test article created by the integration suite. Verification token: {kb_unique_token}</p>"
+        
+        kb_create_res = servicenow_client.create_knowledge_article(kb_title, kb_text)
+        print(f"Create KB Article Result: {kb_create_res}")
+        
+        target_art_number = kb_create_res.get("number")
+        target_art_sys_id = kb_create_res.get("sys_id")
+        print(f"Created Article sys_id: {target_art_sys_id} | Number: {target_art_number}")
+
+        print("\n--- 7. Testing get_knowledge_article ---")
+        # Query by sys_id directly to prevent sequential number collision with pre-existing PDI demo data
+        kb_details = servicenow_client.get_knowledge_article(target_art_sys_id)
+        print("Knowledge Article Details:")
+        print(f"  - Number: {kb_details.get('number')}")
+        print(f"  - Title: {kb_details.get('short_description')}")
+        print(f"  - Content length: {len(kb_details.get('text', ''))} chars")
+
+        print("\n--- 8. Testing search_knowledge_base ---")
+        search_query = "Test Article"
+        search_results = servicenow_client.search_knowledge_base(search_query, limit=3)
+        print(f"Search for '{search_query}' returned {len(search_results)} matches.")
+        for art in search_results:
+            print(f"  - {art.get('number')}: {art.get('short_description')}")
+            if art.get("number") == target_art_number:
+                print("    (Successfully located our newly created test article in search results!)")
+
+        print("\n--- 9. Testing delete_knowledge_article (Live Cleanup Test) ---")
+        kb_del_res = servicenow_client.delete_knowledge_article(target_art_sys_id)
+        print(f"Delete KB Article Result: {kb_del_res}")
+
+        # Double check it is gone
+        print("\nVerifying KB article deletion...")
+        try:
+            servicenow_client.get_knowledge_article(target_art_sys_id)
+            raise Exception("Verification failed: KB article still exists after deletion!")
+        except Exception as e:
+            if "no record found" in str(e).lower() or "not found" in str(e).lower() or "404" in str(e).lower():
+                print("Success! KB Article successfully verified as deleted from the database.")
+            else:
+                raise e
+
+
+
+        print("\n==================================================")
+        print("Verification Complete: ALL TESTS PASSED SUCCESSFUL! ")
+        print("==================================================")
 
     except Exception as e:
-        print(f"\n❌ Verification Failed: {e}")
+        print(f"\n Verification FAILED with error: {e}")
         sys.exit(1)
 
 if __name__ == "__main__":

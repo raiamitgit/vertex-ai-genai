@@ -341,3 +341,180 @@ def delete_comment(comment_sys_id: str) -> Dict[str, Any]:
         if not isinstance(e, ServiceNowClientError):
             raise ServiceNowClientError(f"Error communicating with ServiceNow: {e}")
         raise
+
+
+# ==============================================================================
+# Knowledge Base (kb_knowledge) Integration Functions
+# ==============================================================================
+
+def _get_kb_article_sys_id(article_id: str, instance_url: str, auth: Tuple[str, str]) -> str:
+    """Resolves a KB article number (e.g., 'KB0010001') to its internal 32-character sys_id."""
+    if len(article_id) == 32 and all(c in '0123456789abcdefABCDEF' for c in article_id):
+        return article_id
+
+    url = f"{instance_url}/api/now/table/kb_knowledge"
+    params = {
+        "sysparm_query": f"number={article_id}",
+        "sysparm_fields": "sys_id",
+        "sysparm_limit": 1
+    }
+
+    try:
+        response = requests.get(url, auth=auth, params=params, headers={"Accept": "application/json"}, timeout=10)
+        if response.status_code == 200:
+            result = response.json().get("result", [])
+            if result:
+                return result[0].get("sys_id")
+            else:
+                raise ServiceNowClientError(f"Knowledge article with number '{article_id}' not found.")
+        else:
+            raise ServiceNowClientError(
+                f"Failed to resolve article number. Status: {response.status_code}, Response: {response.text}"
+            )
+    except Exception as e:
+        if not isinstance(e, ServiceNowClientError):
+            raise ServiceNowClientError(f"Error during article sys_id resolution: {e}")
+        raise
+
+
+def _get_default_kb_base(instance_url: str, auth: Tuple[str, str]) -> str:
+    """Retrieves the sys_id of the first active Knowledge Base in the ServiceNow instance."""
+    url = f"{instance_url}/api/now/table/kb_knowledge_base"
+    params = {
+        "sysparm_query": "active=true",
+        "sysparm_fields": "sys_id,title",
+        "sysparm_limit": 1
+    }
+
+    try:
+        response = requests.get(url, auth=auth, params=params, headers={"Accept": "application/json"}, timeout=10)
+        if response.status_code == 200:
+            result = response.json().get("result", [])
+            if result:
+                logger.info(f"Using active Knowledge Base: {result[0].get('title')} ({result[0].get('sys_id')})")
+                return result[0].get("sys_id")
+            else:
+                raise ServiceNowClientError("No active Knowledge Base found in the instance.")
+        else:
+            raise ServiceNowClientError(
+                f"Failed to retrieve active knowledge bases. Status: {response.status_code}"
+            )
+    except Exception as e:
+        if not isinstance(e, ServiceNowClientError):
+            raise ServiceNowClientError(f"Error querying knowledge bases: {e}")
+        raise
+
+
+def search_knowledge_base(query: str, limit: int = 5) -> List[Dict[str, Any]]:
+    """Searches the ServiceNow Knowledge Base (kb_knowledge) for matching articles."""
+    instance_url, auth = _get_connection_details()
+    url = f"{instance_url}/api/now/table/kb_knowledge"
+
+    # Construct sysparm_query: active=true AND (short_description LIKE query OR text LIKE query)
+    sys_query = f"active=true^short_descriptionLIKE{query}^ORtextLIKE{query}^ORDERBYDESCsys_created_on"
+    params = {
+        "sysparm_query": sys_query,
+        "sysparm_fields": "sys_id,number,short_description,author,sys_created_on",
+        "sysparm_limit": limit
+    }
+
+    try:
+        logger.info(f"Searching Knowledge Base for: '{query}'")
+        response = requests.get(url, auth=auth, params=params, headers={"Accept": "application/json"}, timeout=10)
+        if response.status_code == 200:
+            return response.json().get("result", [])
+        else:
+            raise ServiceNowClientError(
+                f"Knowledge search failed. Status: {response.status_code}, Response: {response.text}"
+            )
+    except Exception as e:
+        if not isinstance(e, ServiceNowClientError):
+            raise ServiceNowClientError(f"Error searching knowledge base: {e}")
+        raise
+
+
+def get_knowledge_article(article_id: str) -> Dict[str, Any]:
+    """Retrieves complete fields and content body of a specific Knowledge Article."""
+    instance_url, auth = _get_connection_details()
+    sys_id = _get_kb_article_sys_id(article_id, instance_url, auth)
+
+    url = f"{instance_url}/api/now/table/kb_knowledge/{sys_id}"
+    fields = ["sys_id", "number", "short_description", "text", "author", "sys_created_on", "kb_knowledge_base"]
+    params = {"sysparm_fields": ",".join(fields)}
+
+    try:
+        logger.info(f"Fetching details for article sys_id: {sys_id}")
+        response = requests.get(url, auth=auth, params=params, headers={"Accept": "application/json"}, timeout=10)
+        if response.status_code == 200:
+            return response.json().get("result", {})
+        else:
+            raise ServiceNowClientError(
+                f"Failed to fetch article details. Status: {response.status_code}, Response: {response.text}"
+            )
+    except Exception as e:
+        if not isinstance(e, ServiceNowClientError):
+            raise ServiceNowClientError(f"Error retrieving article details: {e}")
+        raise
+
+
+def create_knowledge_article(title: str, text: str, kb_base_sys_id: str = None) -> Dict[str, Any]:
+    """Creates a new Knowledge Base article in draft state."""
+    instance_url, auth = _get_connection_details()
+
+    if not kb_base_sys_id:
+        kb_base_sys_id = _get_default_kb_base(instance_url, auth)
+
+    url = f"{instance_url}/api/now/table/kb_knowledge"
+    payload = {
+        "short_description": title,
+        "text": text,
+        "kb_knowledge_base": kb_base_sys_id,
+        "workflow_state": "draft"
+    }
+
+    try:
+        logger.info(f"Creating knowledge article: '{title}' under base sys_id: {kb_base_sys_id}")
+        response = requests.post(
+            url,
+            auth=auth,
+            headers={"Content-Type": "application/json", "Accept": "application/json"},
+            json=payload,
+            timeout=10
+        )
+        if response.status_code == 201:
+            result = response.json().get("result", {})
+            logger.info(f"Successfully created KB article: {result.get('number')}")
+            return {
+                "success": True,
+                "message": "Knowledge article created successfully as Draft.",
+                "number": result.get("number"),
+                "sys_id": result.get("sys_id")
+            }
+        else:
+            raise ServiceNowClientError(
+                f"Failed to create KB article. Status: {response.status_code}, Response: {response.text}"
+            )
+    except Exception as e:
+        if not isinstance(e, ServiceNowClientError):
+            raise ServiceNowClientError(f"Error creating KB article: {e}")
+        raise
+
+
+def delete_knowledge_article(article_sys_id: str) -> Dict[str, Any]:
+    """Deletes a specific Knowledge Article by its sys_id (useful for test cleanup)."""
+    instance_url, auth = _get_connection_details()
+    url = f"{instance_url}/api/now/table/kb_knowledge/{article_sys_id}"
+
+    try:
+        logger.info(f"Deleting knowledge article sys_id: {article_sys_id}")
+        response = requests.delete(url, auth=auth, timeout=10)
+        if response.status_code == 204:
+            return {"success": True, "message": "Knowledge article deleted successfully."}
+        else:
+            raise ServiceNowClientError(
+                f"Failed to delete knowledge article. Status: {response.status_code}"
+            )
+    except Exception as e:
+        if not isinstance(e, ServiceNowClientError):
+            raise ServiceNowClientError(f"Error deleting knowledge article: {e}")
+        raise

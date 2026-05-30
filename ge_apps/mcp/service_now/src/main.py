@@ -142,9 +142,8 @@ async def mcp_post_endpoint(request: Request):
                 # Annotate tools to control user consent prompts in Gemini Enterprise.
                 # Read-only tools are marked with readOnlyHint=True to enable implicit execution.
                 # Write and delete tools are marked with destructiveHint=True to enforce explicit user approval.
-                if tool.name in ["list_incidents", "query_incident", "get_ticket_comments"]:
+                if tool.name in ["list_incidents", "query_incident", "get_ticket_comments", "search_knowledge_base", "get_knowledge_article"]:
                     annotations = {
-
                         "readOnlyHint": True,
                         "idempotentHint": True,
                         "destructiveHint": False
