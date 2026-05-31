@@ -1,25 +1,11 @@
 #!/bin/bash
-# Copyright 2026 Google LLC
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#      https://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-
-# Automation script to register the deployed Cloud Run agent with Gemini Enterprise.
+# Script to register the Cloud Run agent with Gemini Enterprise.
 
 # 1. Load active credentials from shared .env file in the parent folder
 if [ -f "../.env" ]; then
   export $(grep -v '^#' ../.env | xargs)
 else
-  echo "❌ Error: Shared .env file not found in parent directory."
+  echo "Error: Shared .env file not found in parent directory."
   exit 1
 fi
 
@@ -38,7 +24,7 @@ echo "Fetching Cloud Run URL for service '$SERVICE_NAME'..."
 AGENT_URL=$(gcloud run services describe "$SERVICE_NAME" --project="$GOOGLE_CLOUD_PROJECT" --region="$REGION" --format="value(status.url)")
 
 if [ -z "$AGENT_URL" ]; then
-  echo "❌ Error: Could not retrieve URL for Cloud Run service '$SERVICE_NAME'."
+  echo "Error: Could not retrieve URL for Cloud Run service '$SERVICE_NAME'."
   exit 1
 fi
 
@@ -54,9 +40,9 @@ try:
     card['url'] = '$AGENT_URL'
     with open('agent_card_prod.json', 'w') as f:
         json.dump(card, f, indent=2)
-    print('✅ Production Agent Card generated (agent_card_prod.json).')
+    print('Production Agent Card generated (agent_card_prod.json).')
 except Exception as e:
-    print(f'❌ Failed to generate card: {e}')
+    print(f'Failed to generate card: {e}')
     exit(1)
 "
 if [ $? -ne 0 ]; then
@@ -97,12 +83,12 @@ response_body=$(echo "$response" | sed '$d')
 if [ "$http_status" -eq 200 ] || [ "$http_status" -eq 201 ]; then
   echo ""
   echo "===================================================="
-  echo "✅ Agent successfully registered with Gemini Enterprise!"
+  echo "Agent successfully registered with Gemini Enterprise!"
   echo "===================================================="
   echo "$response_body" | python3 -m json.tool 2>/dev/null || echo "$response_body"
 else
   echo ""
-  echo "❌ Registration failed (HTTP Status: $http_status)"
+  echo "Registration failed (HTTP Status: $http_status)"
   echo "Error Response:"
   echo "$response_body" | python3 -m json.tool 2>/dev/null || echo "$response_body"
   exit 1

@@ -1,9 +1,11 @@
 """ServiceNow MCP Server.
 
 This module defines the Model Context Protocol (MCP) server instance using FastMCP.
-It wraps the ServiceNow API client functions into tools that Gemini Enterprise can discover and execute.
+It wraps our core ServiceNow API client functions into standardized, schema-exposed
+tools that Gemini Enterprise can discover and execute.
 
-Every tool includes docstrings which are used by Gemini to make routing and parameter resolution decisions at runtime.
+Every tool includes highly detailed docstrings which are used by Gemini to make
+dynamic routing and parameter resolution decisions at runtime.
 """
 
 import os
@@ -11,7 +13,7 @@ import logging
 from typing import Optional
 from mcp.server.fastmcp import FastMCP
 
-# Import the verified ServiceNow client functions
+# Import our verified ServiceNow client functions
 import servicenow_client
 
 # Configure logging
@@ -38,7 +40,7 @@ def list_incidents(limit: int = 5) -> str:
     try:
         incidents = servicenow_client.list_recent_incidents(limit=limit)
         if not incidents:
-            return "No incidents found in the ServiceNow instance."
+            return "No incidents found in your ServiceNow instance."
 
         output = f"### Recent ServiceNow Incidents (Up to {limit}):\n\n"
         for inc in incidents:
@@ -52,7 +54,7 @@ def list_incidents(limit: int = 5) -> str:
 
 @mcp.tool()
 def query_incident(ticket_id: str) -> str:
-    """Query details for a specific ServiceNow incident by its ticket ID (e.g. INC0010019).
+    """Query comprehensive details for a specific ServiceNow incident by its ticket ID (e.g. INC0010019).
 
     Use this tool when the user asks about a specific ticket's status, priority,
     urgency, creation date, caller, or full description.
@@ -138,7 +140,7 @@ def add_ticket_comment(ticket_id: str, comment_text: str) -> str:
     """
     try:
         result = servicenow_client.add_incident_comment(ticket_id, comment_text)
-        return f"### Comment Added Successfully\n\nComment has been posted to incident **{ticket_id}**."
+        return f"### ✅ Comment Added Successfully\n\nComment has been posted to incident **{ticket_id}**."
     except Exception as e:
         logger.error(f"Error in add_ticket_comment tool for {ticket_id}: {e}")
         return f"Error adding comment to '{ticket_id}': {str(e)}"
@@ -149,7 +151,7 @@ def delete_ticket_comment(comment_sys_id: str) -> str:
     """Delete a specific comment (journal entry) from ServiceNow history by its comment ID.
 
     Use this tool when the user requests to remove, delete, or retract a specific
-    comment from a ticket's history. It requires the comment's sys_id (which can
+    comment from a ticket's history. You must have the comment's sys_id (which can
     be found by listing comments first).
 
     Args:
@@ -160,7 +162,7 @@ def delete_ticket_comment(comment_sys_id: str) -> str:
     """
     try:
         result = servicenow_client.delete_comment(comment_sys_id)
-        return f"### Comment Deleted Successfully\n\nComment with ID `{comment_sys_id}` has been removed from history."
+        return f"### ✅ Comment Deleted Successfully\n\nComment with ID `{comment_sys_id}` has been removed from history."
     except Exception as e:
         logger.error(f"Error in delete_ticket_comment tool for {comment_sys_id}: {e}")
         return f"Error deleting comment `{comment_sys_id}`: {str(e)}"
@@ -206,7 +208,7 @@ def update_ticket_fields(
     try:
         result = servicenow_client.update_incident_fields(ticket_id, updates)
         
-        output = f"### Ticket Updated Successfully\n\nIncident **{ticket_id}** has been updated:\n"
+        output = f"### ✅ Ticket Updated Successfully\n\nIncident **{ticket_id}** has been updated:\n"
         if description:
             output += f"* **Description** updated.\n"
         if state:
@@ -273,6 +275,9 @@ def get_knowledge_article(article_id: str) -> str:
         
         output = f"### Knowledge Article: {details.get('number')}\n\n"
         output += f"## **Title**: {details.get('short_description')}\n\n"
+        
+        # Clean HTML tags from ServiceNow's text field for clean markdown display if possible,
+        # otherwise print it directly since Markdown parsers often render HTML tags safely.
         output += f"{details.get('text')}\n\n"
         output += f"---\n"
         output += f"* **Article ID**: `{details.get('sys_id')}`\n"
@@ -305,7 +310,45 @@ def create_knowledge_article(title: str, text: str, kb_base_sys_id: Optional[str
     """
     try:
         result = servicenow_client.create_knowledge_article(title, text, kb_base_sys_id)
-        return f"### Knowledge Article Created Successfully\n\nCreated Draft Article **{result.get('number')}**."
+        output = f"### Knowledge Article Created Successfully\n\n"
+        output += f"Created Draft Article **{result.get('number')}**.\n\n"
+        output += f"**[Click here to review and publish this draft in ServiceNow]({result.get('url')})**"
+        return output
     except Exception as e:
         logger.error(f"Error in create_knowledge_article tool: {e}")
         return f"Error creating knowledge article: {str(e)}"
+
+
+@mcp.tool()
+def update_knowledge_article(
+    article_id: str, 
+    title: Optional[str] = None, 
+    text: Optional[str] = None
+) -> str:
+    """Update an existing ServiceNow Knowledge Article.
+
+    Use this tool when the user requests to edit, update, append, or modify the content,
+    title, or description of an existing documentation page.
+    
+    All edits are saved as a Draft, allowing manual verification prior to publishing.
+
+    Args:
+        article_id: The article number (e.g., 'KB0010001') or sys_id.
+        title: The new short description or title of the article (optional).
+        text: The new HTML/text body content of the article (optional).
+
+    Returns:
+        A Markdown success message along with a review link.
+    """
+    try:
+        result = servicenow_client.update_knowledge_article(article_id, title=title, text=text)
+        output = f"### Knowledge Article Updated Successfully\n\n"
+        output += f"Article **{result.get('number')}** has been updated and reverted to **Draft** state for safety.\n\n"
+        output += f"**[Click here to review and re-publish this draft in ServiceNow]({result.get('url')})**"
+        return output
+    except Exception as e:
+        logger.error(f"Error in update_knowledge_article tool for {article_id}: {e}")
+        return f"Error updating knowledge article '{article_id}': {str(e)}"
+
+
+

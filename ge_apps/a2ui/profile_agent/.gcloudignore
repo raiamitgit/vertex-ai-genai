@@ -1,0 +1,8 @@
+# Ignore virtual environments and cache
+.venv/
+.adk/
+__pycache__/
+*.pyc
+.git/
+.gitignore
+.gcloudignore

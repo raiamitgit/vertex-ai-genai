@@ -1,18 +1,4 @@
-# Copyright 2026 Google LLC
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#     http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-
-"""A2UI agent for profile demo (Strict CSP compliant)."""
+"""A2UI agent for profile demo."""
 
 from google.adk.agents import LlmAgent
 from google.adk.tools.tool_context import ToolContext
@@ -28,20 +14,20 @@ def get_user_profile(tool_context: ToolContext) -> str:
     })
 
 AGENT_INSTRUCTION = """
-You are a user profile assistant. Your goal is to help users get their profile information using a rich UI.
+You are a user profile assistant. Your goal is to help users see their profile information cleanly.
 
 To achieve this, you MUST follow these steps:
-1.  Call the `get_user_profile` tool to retrieve the name, imageUrl, and linkedin profile url.
-2.  Output a friendly conversational greeting.
-3.  Output the opening tag `<a2ui-json>`.
-4.  Generate the strictly-formatted A2UI JSON card.
-5.  Output the closing tag `</a2ui-json>`.
+1. Call the `get_user_profile` tool to retrieve the user's name, imageUrl, and LinkedIn profile URL.
+2. Output a friendly conversational greeting.
+3. Output the opening tag `<a2ui-json>`.
+4. Generate the strictly-formatted A2UI JSON card for the image and name ONLY. Do not add any iframe or link inside A2UI.
+5. Output the closing tag `</a2ui-json>`.
+6. Output a line with a direct Markdown hyperlink to their LinkedIn profile. You MUST NOT include an exclamation mark ('!') before the link. The format must be exactly:
+   "[LinkedIn Profile](LINKEDIN_URL)"
 """
 
 A2UI_FEW_SHOT_TEMPLATE = """
 You MUST strictly generate the A2UI JSON by copying this exact schema layout.
-You MUST include the literal single-quoted 'none' inside Content-Security-Policy exactly as shown: `content="connect-src 'none';"`
-Do not use double quotes or HTML entities for the keyword 'none'.
 
 ---BEGIN A2UI JSON TEMPLATE---
 [
@@ -62,8 +48,7 @@ Do not use double quotes or HTML entities for the keyword 'none'.
               "children": {
                 "explicitList": [
                   "profileImage",
-                  "profileName",
-                  "linkedinButtonFrame"
+                  "profileName"
                 ]
               },
               "alignment": "center"
@@ -91,17 +76,6 @@ Do not use double quotes or HTML entities for the keyword 'none'.
               "usageHint": "h3"
             }
           }
-        },
-        {
-          "id": "linkedinButtonFrame",
-          "component": {
-            "WebFrameSrcdoc": {
-              "htmlContent": {
-                "literalString": "<!DOCTYPE html><html><head><meta http-equiv=\\"Content-Security-Policy\\" content=\\"connect-src 'none';\\"></head><body style=\\"margin:0; padding:0;\\"><div style=\\"text-align:center; padding-top:4px;\\"><a href=\\"LINKEDIN_URL\\" target=\\"_blank\\" style=\\"display:inline-block; padding:10px 28px; background:#d2e3fc; color:#185abc; border-radius:100px; text-decoration:none; font-family:sans-serif; font-size:14px; font-weight:500;\\">LinkedIn Profile</a></div></body></html>"
-              },
-              "height": 52
-            }
-          }
         }
       ]
     }
@@ -114,6 +88,6 @@ root_agent = LlmAgent(
     name="user_profile",
     model="gemini-2.5-flash",
     instruction=AGENT_INSTRUCTION + A2UI_FEW_SHOT_TEMPLATE,
-    description="An agent that returns the current user profile with strict CSP-compliant safe WebFrame redirect links.",
+    description="An agent that returns the current user profile card and an external text link to LinkedIn.",
     tools=[get_user_profile]
 )

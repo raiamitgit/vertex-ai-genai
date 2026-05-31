@@ -103,16 +103,46 @@ def run_verification():
         print(f"  - Title: {kb_details.get('short_description')}")
         print(f"  - Content length: {len(kb_details.get('text', ''))} chars")
 
-        print("\n--- 8. Testing search_knowledge_base ---")
-        search_query = "Test Article"
+        print("\n--- 8. Testing update_knowledge_article (Live Update Test) ---")
+        updated_kb_title = f"Updated Test Article - {kb_unique_token}"
+        updated_kb_text = f"<p>This article was successfully edited! Verification token: {kb_unique_token}</p>"
+        
+        kb_update_res = servicenow_client.update_knowledge_article(
+            target_art_sys_id, 
+            title=updated_kb_title, 
+            text=updated_kb_text
+        )
+        print(f"Update KB Article Result: {kb_update_res}")
+        print(f"Verification URL returned: {kb_update_res.get('url')}")
+
+        print("\nVerifying KB article updates...")
+        updated_details = servicenow_client.get_knowledge_article(target_art_sys_id)
+        print("Updated Knowledge Article Details:")
+        print(f"  - Number: {updated_details.get('number')}")
+        print(f"  - Title: {updated_details.get('short_description')}")
+        print(f"  - Content: {updated_details.get('text')}")
+        
+        if updated_details.get("short_description") != updated_kb_title:
+            raise Exception(f"Update verification failed: Title does not match! Found: {updated_details.get('short_description')}")
+        if updated_kb_text not in updated_details.get("text", ""):
+            raise Exception(f"Update verification failed: Content body does not match! Found: {updated_details.get('text')}")
+        print("Success! KB Article updates successfully written and verified.")
+
+        print("\n--- 9. Testing search_knowledge_base ---")
+        search_query = "Updated Test"
         search_results = servicenow_client.search_knowledge_base(search_query, limit=3)
         print(f"Search for '{search_query}' returned {len(search_results)} matches.")
+        found_updated = False
         for art in search_results:
             print(f"  - {art.get('number')}: {art.get('short_description')}")
             if art.get("number") == target_art_number:
-                print("    (Successfully located our newly created test article in search results!)")
+                found_updated = True
+                print("    (Successfully located our newly updated test article in search results!)")
+        
+        if not found_updated:
+            raise Exception("Search verification failed: Updated article was not found in search queries!")
 
-        print("\n--- 9. Testing delete_knowledge_article (Live Cleanup Test) ---")
+        print("\n--- 10. Testing delete_knowledge_article (Live Cleanup Test) ---")
         kb_del_res = servicenow_client.delete_knowledge_article(target_art_sys_id)
         print(f"Delete KB Article Result: {kb_del_res}")
 
@@ -128,13 +158,13 @@ def run_verification():
                 raise e
 
 
-
         print("\n==================================================")
-        print("Verification Complete: ALL TESTS PASSED SUCCESSFUL! ")
+        print("Verification Complete: ALL TESTS PASSED SUCCESSFUL! 🎉")
         print("==================================================")
 
+
     except Exception as e:
-        print(f"\n Verification FAILED with error: {e}")
+        print(f"\n❌ Verification FAILED with error: {e}")
         sys.exit(1)
 
 if __name__ == "__main__":

@@ -1,10 +1,11 @@
 """ServiceNow MCP Web Server Entrypoint.
 
-This module acts as the host process for the ServiceNow BYO-MCP server.
-It initializes a FastAPI web application, includes the Mock OAuth router,
-and exposes the JSON-RPC 2.0 endpoint under `/mcp` and mock OAuth flow.
+This module acts as the main host process for our ServiceNow BYO-MCP server.
+It initializes a unified FastAPI web application, includes our Mock OAuth router,
+and mounts the MCP Streamable HTTP transport app under the `/mcp` endpoint.
 
-This host allows running both the tools and the auth handshake on a single port in Google Cloud Run.
+This single unified host allows us to run both the tools and the auth handshake
+on a single port in Google Cloud Run.
 """
 
 import os
@@ -12,6 +13,7 @@ import logging
 import sys
 from fastapi import FastAPI, Request, HTTPException
 from fastapi.responses import HTMLResponse, JSONResponse
+
 
 # Ensure src is in path for nested imports during server startup
 sys.path.append(os.path.abspath(os.path.dirname(__file__)))
@@ -37,6 +39,7 @@ app = FastAPI(
 # 2. Register the Mock OAuth 2.0 Provider Router
 # This registers the GET /oauth/authorize and POST /oauth/token routes
 app.include_router(oauth_router)
+
 
 
 @app.get("/", response_class=HTMLResponse)
@@ -67,7 +70,7 @@ async def root_index(request: Request):
     <body>
         <div class="container">
             <h1>ServiceNow BYO-MCP Server</h1>
-            <div class="status">Active & Running</div>
+            <div class="status">● Active & Running</div>
             <p>This server is active and ready to connect to Gemini Enterprise. Use the following connection endpoints to register this custom data store:</p>
             
             <h2>Registration Endpoints</h2>
@@ -89,7 +92,7 @@ async def root_index(request: Request):
 
 
 # 3. Manual JSON-RPC 2.0 Router for Custom MCP (/mcp)
-# The MCP StreamableHTTP protocol is implemented manually to bypass AnyIO
+# We implement the MCP StreamableHTTP protocol manually to bypass the AnyIO
 # task group initialization errors that occur when mounting FastMCP.streamable_http_app
 # inside an independent FastAPI process.
 
@@ -136,14 +139,16 @@ async def mcp_post_endpoint(request: Request):
     elif method == "tools/list":
         try:
             tools = []
-            # Dynamically list tools registered on the FastMCP server instance
+            # Dynamically list tools registered on our FastMCP server instance
             discovered_tools = await mcp.list_tools()
             for tool in discovered_tools:
                 # Annotate tools to control user consent prompts in Gemini Enterprise.
                 # Read-only tools are marked with readOnlyHint=True to enable implicit execution.
                 # Write and delete tools are marked with destructiveHint=True to enforce explicit user approval.
                 if tool.name in ["list_incidents", "query_incident", "get_ticket_comments", "search_knowledge_base", "get_knowledge_article"]:
+
                     annotations = {
+
                         "readOnlyHint": True,
                         "idempotentHint": True,
                         "destructiveHint": False
@@ -191,7 +196,7 @@ async def mcp_post_endpoint(request: Request):
         logger.info(f"[MCP HANDLER] Attempting execution of tool: {name} with args: {arguments}")
 
         try:
-            # Execute the tool using the FastMCP server directly in-process
+            # Execute the tool using our FastMCP server directly in-process!
             result = await mcp.call_tool(name, arguments)
 
             # Serialize the FastMCP return objects to standard JSON-RPC content blocks
@@ -237,3 +242,5 @@ async def mcp_post_endpoint(request: Request):
                 "message": f"Method not found: {method}"
             }
         })
+
+

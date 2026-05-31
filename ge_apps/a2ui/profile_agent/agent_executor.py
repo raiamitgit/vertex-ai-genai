@@ -1,17 +1,3 @@
-# Copyright 2026 Google LLC
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#     http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-
 """A2A Executor with balanced bracket XML parsing and flat list-to-parts mapping."""
 
 import json
@@ -22,7 +8,7 @@ from google.genai import types
 
 logger = logging.getLogger("agent_executor")
 
-# Standard A2UI XML-style tags used by the official SDK
+# Standard A2UI XML-style tags used to demarcate the UI block
 A2UI_OPEN_TAG = "<a2ui-json>"
 A2UI_CLOSE_TAG = "</a2ui-json>"
 A2UI_MIME_TYPE = "application/json+a2ui"
@@ -43,7 +29,7 @@ def _sanitize_json(raw: str) -> str:
     return s.strip()
 
 def extract_first_json_array(s: str) -> str:
-    """Surgically extracts the first balanced JSON array [...] from a string."""
+    """Extracts the first balanced JSON array [...] from a string."""
     bracket_count = 0
     start_idx = -1
     for i, char in enumerate(s):
@@ -58,24 +44,24 @@ def extract_first_json_array(s: str) -> str:
     return ""
 
 def enforce_csp_tag(html_str: str) -> str:
-    """Surgically normalizes or injects the exact Content-Security-Policy meta tag needed by older A2UI renderers."""
+    """Normalizes or injects the Content-Security-Policy meta tag needed by A2UI renderers."""
     compliant_tag = '<meta http-equiv="Content-Security-Policy" content="connect-src \'none\';">'
-    
+
     # Match any existing CSP meta tag case-insensitively
     pattern = re.compile(r'<meta\s+[^>]*Content-Security-Policy[^>]*>', re.IGNORECASE)
     if pattern.search(html_str):
         return pattern.sub(compliant_tag, html_str)
-        
+
     # Inject after <head> if it exists
     head_pattern = re.compile(r'(<head[^>]*>)', re.IGNORECASE)
     if head_pattern.search(html_str):
         return head_pattern.sub(rf'\1{compliant_tag}', html_str)
-        
+
     # Inject after <html> if it exists
     html_pattern = re.compile(r'(<html[^>]*>)', re.IGNORECASE)
     if html_pattern.search(html_str):
         return html_pattern.sub(rf'\1<head>{compliant_tag}</head>', html_str)
-        
+
     # Wrap if completely missing
     return f"<html><head>{compliant_tag}</head><body>{html_str}</body></html>"
 
@@ -83,7 +69,7 @@ def sanitize_ui_item(item: dict) -> dict:
     """Walks the component dictionary tree and normalizes WebFrameSrcdoc HTML Content-Security-Policy."""
     if not isinstance(item, dict):
         return item
-        
+
     if "surfaceUpdate" in item:
         surface_update = item["surfaceUpdate"]
         if isinstance(surface_update, dict) and "components" in surface_update:
@@ -101,12 +87,13 @@ def sanitize_ui_item(item: dict) -> dict:
                                     if isinstance(raw_html, str):
                                         sanitized_html = enforce_csp_tag(raw_html)
                                         html_content["literalString"] = sanitized_html
-                                        logger.info("Surgically sanitized and validated WebFrameSrcdoc CSP meta tag!")
+                                        logger.info("Sanitized and validated WebFrameSrcdoc CSP meta tag.")
     return item
 
+
 class SolvedAgentExecutor:
-    """Bridges the delimiter-based ADK agent output with the A2A Protocol response format."""
-    
+    """Bridges the tag-demarcated ADK agent output with the A2A Protocol response format."""
+
     def __init__(self, runner: Runner):
         self.runner = runner
 
@@ -121,19 +108,19 @@ class SolvedAgentExecutor:
         """
         session_id = "solved-session-123"
         user_id = "solved-user"
-        
+
         try:
             await self.runner.session_service.create_session(
-                app_name="profile_agent_solved",
+                app_name=self.runner.app_name,
                 user_id=user_id,
                 session_id=session_id
             )
         except Exception:
             pass
-            
+
         new_message = types.Content(role='user', parts=[types.Part(text=user_query)])
         agent_raw_response = ""
-        
+
         # 1. Execute the ADK runner
         async for event in self.runner.run_async(user_id=user_id, session_id=session_id, new_message=new_message):
             if event.is_final_response() and event.content and event.content.parts:
@@ -141,26 +128,26 @@ class SolvedAgentExecutor:
                     if part.text:
                         agent_raw_response = part.text
                         break
-                        
+
         if not agent_raw_response:
             raise ValueError("Agent returned empty response.")
-            
+
         # 2. Parse using standard XML tags
         matches = list(_A2UI_BLOCK_RE.finditer(agent_raw_response))
-        
+
         if not matches:
             logger.info("No XML A2UI tags found, returning raw response as TextPart.")
             return [{
                 "kind": "text",
                 "text": agent_raw_response.strip()
             }]
-            
+
         a2a_parts = []
         last_end = 0
-        
+
         for match in matches:
             start, end = match.span()
-            
+
             # Extract conversational text preceding this block
             text_before = agent_raw_response[last_end:start].strip()
             if text_before:
@@ -168,20 +155,20 @@ class SolvedAgentExecutor:
                     "kind": "text",
                     "text": text_before
                 })
-                
+
             # Extract and sanitize the raw JSON payload between tags
             raw_json_block = match.group(1).strip()
             json_payload_str = extract_first_json_array(_sanitize_json(raw_json_block))
-            
+
             if not json_payload_str:
                 logger.error(f"No balanced JSON array found in block: {raw_json_block}")
                 continue
-                
+
             # Parse the A2UI JSON list
             try:
                 ui_definition = json.loads(json_payload_str)
-                
-                # FIX: Walk the list and append a SEPARATE, flat DataPart for each action item
+
+                # Walk the list and append a SEPARATE, flat DataPart for each action item
                 # This satisfies the A2A Pydantic schema which strictly expects a dictionary in 'data'
                 if isinstance(ui_definition, list):
                     for item in ui_definition:
@@ -204,15 +191,15 @@ class SolvedAgentExecutor:
                     })
             except Exception as e:
                 logger.error(f"Failed to parse isolated A2UI JSON: {e}. Block: {json_payload_str}")
-                
+
             last_end = end
-            
-        # Extract trailing conversational text after the last block
+
+        # Extract trailing conversational text after the last block (e.g. our Markdown link)
         trailing_text = agent_raw_response[last_end:].strip()
         if trailing_text:
             a2a_parts.append({
                 "kind": "text",
                 "text": trailing_text
             })
-            
+
         return a2a_parts

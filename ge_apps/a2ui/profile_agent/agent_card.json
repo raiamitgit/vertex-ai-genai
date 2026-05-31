@@ -1,8 +1,8 @@
 {
   "protocolVersion": "0.3.0",
   "name": "User Profile A2UI Agent",
-  "description": "An agent that displays user profiles using A2UI v0.8 cards.",
-  "url": "http://localhost:8000",
+  "description": "An agent that displays user profiles using A2UI cards.",
+  "url": "http://localhost:8080",
   "version": "1.0.0",
   "capabilities": {
     "streaming": false,

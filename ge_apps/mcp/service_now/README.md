@@ -9,7 +9,7 @@ It implements a unified host that serves both the **Mock OAuth 2.0 Consent Hands
 
 ## 📦 Features & Supported Actions
 
-The server exposes **6 comprehensive database tools** for managing ServiceNow tickets:
+The server exposes **10 comprehensive database tools** for managing ServiceNow tickets and corporate documentation:
 
 | Action Name | Description | Supported Parameters |
 |---|---|---|
@@ -19,6 +19,11 @@ The server exposes **6 comprehensive database tools** for managing ServiceNow ti
 | `add_ticket_comment` | Posts a new user-facing comment/update to a ticket. | `ticket_id`, `comment_text` |
 | `delete_ticket_comment` | Retracts/deletes a specific comment record by its sys_id. | `comment_sys_id` |
 | `update_ticket_fields` | Modifies a ticket's description or its lifecycle state. | `ticket_id`, `description`, `state` (1-8) |
+| `search_knowledge_base` | Searches active documentation matching a search query. | `query`, `limit` (default: 5) |
+| `get_knowledge_article` | Fetches the complete content body and details of an article by its ID. | `article_id` (e.g., `KB0010005`) |
+| `create_knowledge_article` | Creates a new article draft. Returns a direct review/publish link. | `title`, `text`, `kb_base_sys_id` (optional) |
+| `update_knowledge_article` | Modifies an existing article and reverts it to draft. Returns a review link. | `article_id`, `title` (optional), `text` (optional) |
+
 
 ---
 
@@ -135,10 +140,22 @@ By default, Gemini Enterprise prompts the user for explicit consent before runni
 ### How It Works under the Hood:
 The `tools/list` JSON-RPC responder in `main.py` automatically injects standard **Model Context Protocol (MCP) Tool Annotations** into the tool discovery payload:
 
-*   **Read-Only Tools** (`list_incidents`, `query_incident`, `get_ticket_comments`):
+*   **Read-Only Tools** (`list_incidents`, `query_incident`, `get_ticket_comments`, `search_knowledge_base`, `get_knowledge_article`):
     Annotated with `"readOnlyHint": true` and `"destructiveHint": false`. 
     *Gemini Enterprise executes these tools completely silently without any popups.*
-*   **Write / Modify Tools** (`add_ticket_comment`, `delete_ticket_comment`, `update_ticket_fields`):
+*   **Write / Modify Tools** (`add_ticket_comment`, `delete_ticket_comment`, `update_ticket_fields`, `create_knowledge_article`, `update_knowledge_article`):
     Annotated with `"readOnlyHint": false` and `"destructiveHint": true`.
     *Gemini Enterprise enforces explicit security boundaries, prompting the user for confirmation before running these actions.*
+
+---
+
+## 🛡️ Safe Knowledge Base Governance Workflow
+
+To guarantee absolute safety and adhere to corporate documentation standards, the Knowledge Base tools enforce a **restricted draft workflow**:
+
+1.  **Forced Draft State**: Both the `create_knowledge_article` and `update_knowledge_article` tools strictly write or revert the target article's state to **`Draft`** (`workflow_state=draft`). Gemini is restricted from directly publishing articles.
+2.  **Clickable Verification Hyperlinks**: Upon a successful write or update, the tool response returns a formatted Markdown link directly referencing the ServiceNow record:
+    `https://<instance>.service-now.com/kb_knowledge.do?sys_id=<sys_id>`
+3.  **Human-in-the-Loop Validation**: The researcher can review the generated content directly in the ServiceNow UI, adjust styling, and manually click the **Publish** button inside ServiceNow when satisfied.
+
 

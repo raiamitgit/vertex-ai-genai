@@ -1,18 +1,4 @@
-# Copyright 2026 Google LLC
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#     http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-
-"""Rigorously verify A2A server responses against Pydantic schemas (WebFrame integrated)."""
+"""Verify A2A server responses against Pydantic schemas (WebFrame integrated)."""
 
 import json
 from fastapi.testclient import TestClient
@@ -72,16 +58,16 @@ def test_user_action_postback_validation():
     
     response = client.post("/", json=postback_request)
     
-    assert response.status_code == 200, f"❌ Local server failed with status: {response.status_code}"
+    assert response.status_code == 200, f"[ERROR] Local server failed with status: {response.status_code}"
     response_json = response.json()
     print("Received local postback response:")
     print(json.dumps(response_json, indent=2))
     
     try:
         SendMessageResponse.model_validate(response_json)
-        print("✅ SUCCESS: 'userAction' postback response is 100% Pydantic-compliant!")
+        print("[SUCCESS] 'userAction' postback response is Pydantic-compliant!")
     except Exception as err:
-        print(f"❌ Pydantic validation failed for postback: {err}")
+        print(f"[ERROR] Pydantic validation failed for postback: {err}")
         raise err
 
 def test_standard_query_validation():
@@ -113,16 +99,16 @@ def test_standard_query_validation():
     
     response = client.post("/", json=query_request)
     
-    assert response.status_code == 200, f"❌ Local server failed with status: {response.status_code}"
+    assert response.status_code == 200, f"[ERROR] Local server failed with status: {response.status_code}"
     response_json = response.json()
     print("Received local query response:")
     print(json.dumps(response_json, indent=2))
     
     try:
         SendMessageResponse.model_validate(response_json)
-        print("✅ SUCCESS: Standard query response is 100% Pydantic-compliant!")
+        print("[SUCCESS] Standard query response is Pydantic-compliant!")
     except Exception as err:
-        print(f"❌ Pydantic validation failed for query: {err}")
+        print(f"[ERROR] Pydantic validation failed for query: {err}")
         raise err
 
 if __name__ == "__main__":

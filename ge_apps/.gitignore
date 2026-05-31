@@ -44,6 +44,7 @@ yarn-error.log*
 # Logs and databases
 *.log
 *.sqlite
+.adk/
 
 # Operating System Files
 .DS_Store

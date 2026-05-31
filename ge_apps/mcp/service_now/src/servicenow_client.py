@@ -1,14 +1,18 @@
 """ServiceNow REST API Client.
 
-This module provides an interface to interact with ServiceNow's Table API. It manages credentials, resolves incident numbers to internal sys_ids, and performs CRUD operations on incidents and comments.
+This module provides a clean, robust, and fully documented interface to interact
+with ServiceNow's Table API. It manages credentials, resolves incident numbers to
+internal sys_ids, and performs CRUD operations on incidents and comments.
 
-It is designed to be independent of the Model Context Protocol (MCP), serving as the core integration library.
+It is designed to be independent of the Model Context Protocol (MCP), serving
+as the core integration library.
 """
 
 import os
 import logging
 import requests
-from typing import Dict, Any, List, Tuple
+from typing import Dict, Any, List, Tuple, Optional
+
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -93,7 +97,7 @@ def _get_sys_id(ticket_id: str, instance_url: str, auth: Tuple[str, str]) -> str
 
 
 def get_incident_details(ticket_id: str) -> Dict[str, Any]:
-    """Retrieves details for a specific ServiceNow incident.
+    """Retrieves comprehensive details for a specific ServiceNow incident.
 
     Args:
         ticket_id: The incident number (e.g., 'INC0010001') or sys_id.
@@ -175,7 +179,7 @@ def get_incident_comments(ticket_id: str) -> List[Dict[str, Any]]:
     """Retrieves all user-facing comments (journal entries) for a specific incident.
 
     ServiceNow stores audit history and comments in the sys_journal_field table.
-    The table is queried to reconstruct the thread of comments in chronological order.
+    We query this table to reconstruct the thread of comments in chronological order.
 
     Args:
         ticket_id: The incident number (e.g., 'INC0010001') or sys_id.
@@ -483,12 +487,14 @@ def create_knowledge_article(title: str, text: str, kb_base_sys_id: str = None) 
         )
         if response.status_code == 201:
             result = response.json().get("result", {})
+            sys_id = result.get("sys_id")
             logger.info(f"Successfully created KB article: {result.get('number')}")
             return {
                 "success": True,
                 "message": "Knowledge article created successfully as Draft.",
                 "number": result.get("number"),
-                "sys_id": result.get("sys_id")
+                "sys_id": sys_id,
+                "url": f"{instance_url}/kb_knowledge.do?sys_id={sys_id}"
             }
         else:
             raise ServiceNowClientError(
@@ -497,6 +503,71 @@ def create_knowledge_article(title: str, text: str, kb_base_sys_id: str = None) 
     except Exception as e:
         if not isinstance(e, ServiceNowClientError):
             raise ServiceNowClientError(f"Error creating KB article: {e}")
+        raise
+
+
+def update_knowledge_article(
+    article_id: str, 
+    title: Optional[str] = None, 
+    text: Optional[str] = None
+) -> Dict[str, Any]:
+    """Updates fields on an existing Knowledge Article and reverts its state to Draft for review.
+
+    Args:
+        article_id: The article number (e.g., 'KB0010001') or its 32-char sys_id.
+        title: New short description/title (optional).
+        text: New HTML content body (optional).
+
+    Returns:
+        A dictionary indicating success, along with the Direct UI Verification URL.
+
+    Raises:
+        ServiceNowClientError: If the API call fails or no updates are provided.
+    """
+    updates = {}
+    if title:
+        updates["short_description"] = title
+    if text:
+        updates["text"] = text
+
+    if not updates:
+        raise ServiceNowClientError("No update values were provided. Specify a title or text to update.")
+
+    # Enforce draft state on every update to guarantee human review before re-publishing
+    updates["workflow_state"] = "draft"
+
+    instance_url, auth = _get_connection_details()
+    sys_id = _get_kb_article_sys_id(article_id, instance_url, auth)
+
+    url = f"{instance_url}/api/now/table/kb_knowledge/{sys_id}"
+
+    try:
+        logger.info(f"Updating fields {list(updates.keys())} on Knowledge Article sys_id: {sys_id}")
+        response = requests.patch(
+            url,
+            auth=auth,
+            headers={"Content-Type": "application/json", "Accept": "application/json"},
+            json=updates,
+            timeout=10
+        )
+        
+        if response.status_code == 200:
+            result = response.json().get("result", {})
+            logger.info(f"Successfully updated KB article {result.get('number')}")
+            return {
+                "success": True,
+                "message": "Knowledge article updated successfully and returned to Draft for review.",
+                "number": result.get("number"),
+                "sys_id": sys_id,
+                "url": f"{instance_url}/kb_knowledge.do?sys_id={sys_id}"
+            }
+        else:
+            raise ServiceNowClientError(
+                f"Failed to update Knowledge Article. Status: {response.status_code}, Response: {response.text}"
+            )
+    except Exception as e:
+        if not isinstance(e, ServiceNowClientError):
+            raise ServiceNowClientError(f"Error communicating with ServiceNow: {e}")
         raise
 
 
@@ -518,3 +589,6 @@ def delete_knowledge_article(article_sys_id: str) -> Dict[str, Any]:
         if not isinstance(e, ServiceNowClientError):
             raise ServiceNowClientError(f"Error deleting knowledge article: {e}")
         raise
+
+
+
