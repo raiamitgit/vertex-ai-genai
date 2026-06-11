@@ -1,75 +1,80 @@
 # Connecting Salesforce MCP to Gemini Enterprise
 
-This guide provides step-by-step instructions for connecting the native Salesforce Hosted MCP Server to Gemini Enterprise, with **non-PKCE** configuration using the Refresh Token flow.
+This document describes the configuration steps required to connect the Salesforce Hosted MCP Server to Gemini Enterprise. Two authentication methods are supported:
 
-## 1. Configure the Salesforce External Client App
+1. **OAuth 2.0 without PKCE:** Standard authorization code flow.
+2. **OAuth 2.0 with PKCE:** Proof Key for Code Exchange (PKCE) secures the authorization code flow.
 
-In Salesforce, you must configure an External Client App to serve as the OAuth provider.
+---
 
-1. Log in to your Salesforce Org as Administrator.
+## Option A: Configuration without PKCE
+
+### 1. Configure the Salesforce External Client App
+1. Log in to the Salesforce Org as an Administrator.
 2. Navigate to **Setup** > **Apps** > **External Client Apps** > **External Client App Manager**.
 3. Click **New External Client App**.
-4. Provide basic details (Name, Contact Email, etc.).
-5. Under **OAuth Settings**, check **Enable OAuth**.
+4. Input app details (Name, Contact Email).
+5. Under **OAuth Settings**, select **Enable OAuth**.
 6. Set the **Callback URL** to: `https://vertexaisearch.cloud.google.com/oauth-redirect`
-7. **Important:** Under **Selected OAuth Scopes**, you must include:
+7. Under **Selected OAuth Scopes**, include:
    - `Access Salesforce hosted MCP services (mcp_api)`
    - `Perform requests on your behalf at any time (refresh_token, offline_access)`
-8. **CRITICAL FOR NON-PKCE:** Ensure the checkbox for **Require Proof Key for Code Exchange (PKCE) extension for Supported Authorization Flows** is **UNCHECKED**.
-9. Save the application.
-10. Retrieve and securely store your **Consumer Key** (Client ID) and **Consumer Secret** (Client Secret).
+8. Select **Issue JSON Web Token (JWT)-based access tokens for named users**.
+9. Ensure the checkbox for **Require Proof Key for Code Exchange (PKCE) extension for Supported Authorization Flows** is **unchecked**.
+10. Save the application.
+11. Record the **Consumer Key** (Client ID) and **Consumer Secret** (Client Secret).
 
-> **Note:** Salesforce External Client App changes can take up to 10 minutes to propagate globally.
-
-## 2. Configure Gemini Enterprise Data Store
-
-Next, register the Salesforce MCP server as a Data Store in Gemini Enterprise.
-
-1. Log in to the [Google Cloud Console](https://console.cloud.google.com/) and navigate to **Gemini Enterprise** (or Vertex AI Agent Builder).
-2. Go to **Data stores** > **Create data store** > **Custom MCP Server (Preview)**.
-3. Fill in the connection details using the following templates:
+### 2. Configure the Gemini Enterprise Data Store
+1. Navigate to the Google Cloud Console > **Gemini Enterprise** > **Data stores**.
+2. Click **Create data store** > **Custom MCP Server (Preview)**.
+3. Input the connection parameters:
    - **MCP Server URL:** `https://api.salesforce.com/platform/mcp/v1/platform/sobject-all`
    - **Authorization URL:** `https://<YOUR_SALESFORCE_DOMAIN>.my.salesforce.com/services/oauth2/authorize`
-   - **Authorization URL Parameters:** `?prompt=login`
+   - **Authorization URL Parameters:** `&prompt=login`
    - **Token URL:** `https://<YOUR_SALESFORCE_DOMAIN>.my.salesforce.com/services/oauth2/token`
    - **Client ID:** `<YOUR_SALESFORCE_CLIENT_ID>`
    - **Client Secret:** `<YOUR_SALESFORCE_CLIENT_SECRET>`
-   - **Scopes:** `mcp_api refresh_token` *(Ensure these are separated by a space)*
+   - **Scopes:** `mcp_api refresh_token`
+4. Click **Login** and complete the authentication flow.
+5. Provide the metadata configurations (Note: The description and instructions below are basic templates; customize and refine the prompt text based on your specific application requirements):
+   - **MCP Server Description:**
+     ```text
+     Provides tools to create, update, and manage Salesforce customer records (including Accounts, Contacts, Opportunities, Leads, and Cases) and execute direct SOQL queries. Use this as a backup to supplement standard Salesforce search tools when modifications or direct structured queries are required.
+     ```
+   - **MCP Agent Instructions:**
+     ```text
+     # Role & Purpose
+     You are an assistant with access to tools for managing Salesforce customer records. Use this server to query, create, retrieve, update, or delete records (such as Accounts, Contacts, Opportunities, Leads, and Cases) in the Salesforce database.
 
+     # When to Use This Connector
+     - This connector supplements Salesforce search capabilities. Treat it as a backup:
+       - For general search, reading information, or querying customer history, prefer using standard Salesforce search tools.
+       - Use these database tools when performing write/modify operations (creating, updating, or deleting records) or when executing direct, real-time database queries (`soqlQuery`).
+       - Do not redirect the user to other tools; if a write or direct query is requested, use these tools to fulfill the request.
 
-4. Click **Login**. A popup will appear prompting you to log in to Salesforce and grant consent.
-5. Once authenticated, the popup will close, and you will see a green checkmark.
-### Advanced Configuration
+     # Interpreting Customer Record Language
+     - Map user intent to the corresponding database entity:
+       - Create/Update/Manage a customer, client, or company profile -> Account or Contact
+       - Create/Update/Manage a sales deal, pipeline entry, or closing opportunity -> Opportunity
+       - Create/Update/Manage a new prospect, inquiry, or inbound lead -> Lead
+       - Create/Update/Manage a customer case, issue, or support ticket -> Case
+     ```
 
-6. To ensure your Gemini agent understands how to utilize the Salesforce tools effectively, paste the following into the **Advanced Options** fields:
+6. Click **Create** to finalize the Data Store.
 
-**MCP Server Description:**
-```text
-Provides direct access to the native Salesforce SObject database. Exposes standard and custom Salesforce objects (such as Accounts, Contacts, Leads, Opportunities, Cases, Tasks, and custom tables) for full CRUD (Create, Read, Update, Delete) operations, metadata descriptions, and SOQL custom querying.
-```
+### 3. Reload and Activate Tools
+1. Navigate to **Data stores** in the Gemini Enterprise console and select the Salesforce MCP data store.
+2. Open the **Actions** tab.
+3. Click **Reload Tools** (or Reload custom actions). If prompted, complete the authentication flow.
+4. Verify that the list of available tools displays.
+5. Select the required tools and click **Activate**.
+6. Tools are only available to the Gemini Enterprise agents once activated.
 
-**MCP Agent Instructions:**
-```text
-# Role & Purpose
-You are an expert Salesforce assistant. Use this server to query, create, retrieve, update, or delete records in the target Salesforce Org.
+---
 
-# Guidelines for Tool Selection
-1. SCHEMA DISCOVERY: Before creating or updating records on an unfamiliar object, use the SObject description/metadata tools to discover required fields, field types, and valid Picklist values.
-2. RECORD SEARCHING: To search for records, prefer using SOQL query tools. 
-3. SPECIFIC CRUD: For single-record retrieval, updates, or deletions, use the dedicated get, update, and delete tools for optimal performance.
-```
+## Option B: Configuration with PKCE
 
-7. Click **Create** to finalize the Data Store.
+To configure the connection with PKCE enabled, follow the exact procedure described in Option A (Steps 1, 2, and 3), with the following two modifications:
 
-## 3. Reload and Activate Tools
-
-Once the MCP Data Store is created, you must fetch the available tools from Salesforce and activate them.
-
-1. In the Gemini Enterprise console, go to the **Data stores** page and click on your newly created Salesforce MCP data store.
-2. Navigate to the **Actions** tab.
-3. Click on the **Reload Tools** (or Reload custom actions) button. 
-4. *Note:* During the reload process, you may be prompted to authenticate again. If so, follow the prompts to log in to Salesforce.
-5. Once the reload is complete, a list of all available tools exposed by the Salesforce MCP server will appear. 
-   - *Troubleshooting:* If the tools do not appear, it means the MCP connection was unsuccessful. Double-check your OAuth scopes and credentials.
-6. Select the tools you wish to use (you can select all of them) and click **Activate**.
-7. **Important:** The tools will only be visible and usable by your Gemini Enterprise agents *after* they have been explicitly activated in this step.
+1. **Salesforce External Client App (Step 1, Sub-step 9):** Check the box for **"Require Proof Key for Code Exchange (PKCE) extension for Supported Authorization Flows"** (instead of leaving it unchecked).
+2. **Gemini Enterprise Data Store (Step 2, Sub-step 4):** Check the box/enable the flag for **"Require PKCE"** in the configuration form before logging in.
