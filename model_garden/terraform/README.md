@@ -1,6 +1,6 @@
 # Vertex AI Model Garden Deployment & Teardown Guide
 
-This directory provides enterprise-ready configurations for deploying Model Garden foundation models via Terraform, paired with stateful teardown automation.
+This directory provides configurations for deploying and undeploying Model Garden foundation models via Terraform.
 
 ---
 
@@ -12,7 +12,7 @@ Ensure the AI Platform Service Agent (P4SA) exists in your project so automated 
 gcloud beta services identity create --service=aiplatform.googleapis.com --project="YOUR_PROJECT_ID"
 ```
 
-*(This is handled automatically when calling `./deploy.sh`).*
+*(This is handled when calling `./deploy.sh`).*
 
 ---
 
